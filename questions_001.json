@@ -1,0 +1,19 @@
+{
+	"questionArray": 
+	[
+	    {
+		"meta-data":"unused",
+	        "questionText": "The _____ command will copy files from a local repository to a remote repository.",
+	        "topic": "git",
+	        "imageFilename":"none",
+	        "choiceArray": 
+	        [
+	        	{"isCorrect":"F","choiceText":"git commit"},
+	        	{"isCorrect":"F","choiceText":"git clone"},
+	        	{"isCorrect":"T","choiceText":"git push"},
+	        	{"isCorrect":"F","choiceText":"git pull"},
+	        	{"isCorrect":"F","choiceText":"git cp local remote"}
+	        ],
+	    }
+	] 
+}

@@ -1,0 +1,58 @@
+{
+	"questionArray": 
+	[
+	    {
+	        "meta-data":"unused",
+		"questionText": "Which statement is TRUE regarding sets A and B.",
+	        "topic": "set",
+	        "image":"set_subset_superset.png",
+	        "choiceArray": 
+	        [
+	        	{"iscorrect":"F","choice":"A is a subset of B, but not a proper subset of B"},
+	        	{"iscorrect":"F","choice":"A is a proper subset of B"},
+	        	{"iscorrect":"F","choice":"A is a superset of B, but not a proper superset of B"},
+	        	{"iscorrect":"T","choice":"A is a proper superset of B"},
+	        	{"iscorrect":"F","choice":"A is the complement of B"}
+	        ]
+	    },
+	    {
+	        "meta-data":"unused",
+		"questionText": "When two algorithms have different big-O time complexity, the constants and low-order terms only matter ________. ",
+	        "topic": "performance",
+	        "imageFile":"none",
+	        "choiceArray": 
+	        [
+	        	{"iscorrect":"T","choice":"when the problem size is small"},
+	        	{"iscorrect":"F","choice":"when the problem size is large"}
+	        ]
+	    },
+	    {
+	        "meta-data":"unused",
+		"questionText": "Which insert order produces this 2-3 Tree? ",
+	        "topic": "tree",
+	        "imageFile":"btree.png",
+	        "choiceArray": 
+	        [
+	        	{"iscorrect":"F","choice":"10, 7, 15, 12, 4, 2, 30, 20"},
+	        	{"iscorrect":"F","choice":"20, 30, 2, 4, 12, 15, 7, 10"},
+	        	{"iscorrect":"T","choice":"15, 4, 10, 7, 12, 30, 2, 20"},
+	        	{"iscorrect":"F","choice":"20, 2, 30, 12, 7, 10, 4, 15"},
+	        	{"iscorrect":"F","choice":"2, 4, 7, 12, 10, 20, 15, 30"}
+	        ]
+	    },
+	    {
+	        "meta-data":"unused",
+	        "questionText": "Which choice is a valid topological order for this graph?",
+	        "topic": "graph",
+	        "imageFile":"arbitrary_graph.png",
+	        "choiceArray": 
+	        [
+	        	{"iscorrect":"F","choice":"2, 1, 5, 3, 4"},
+	        	{"iscorrect":"F","choice":"3, 4, 2, 1, 5"},
+	        	{"iscorrect":"F","choice":"4, 2, 1, 5, 3"},
+	        	{"iscorrect":"F","choice":"4, 2, 1, 3, 5"},
+	        	{"iscorrect":"T","choice":"There is no valid topological order"}
+	        ]
+	    }
+	] 
+}

@@ -1,2 +1,2 @@
-# ATeam22
-CS400 Final Team Project
+# QuizGenerator
+Starter files for students working on Spring 2019 Team Project
