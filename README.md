@@ -10,6 +10,7 @@ Michelle Gotteiner, gotteiner@wisc.edu
 - created basic gui
 - added observable list for topics
 - created three buttons to outline functionality
+- centered gui elements and enhanced title
 
 # Future
 - add functionality to buttons/controls
