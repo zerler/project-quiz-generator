@@ -44,6 +44,7 @@ public class Main extends Application {
 	}
 	
 	private void createHomepage(BorderPane root, Scene scene) {
+	  questionsLoaded = 4;
 	  Label quizGenerator = new Label("Quiz Generator");
 	  quizGenerator.setFont(new Font("Arial", 30));
 	  BorderPane.setAlignment(quizGenerator, Pos.CENTER);
@@ -54,7 +55,7 @@ public class Main extends Application {
       Button loadQuestions = new Button("Load Questions");
       Button saveQuestions = new Button("Save Questions");
       Label numberOfQuestionsLoaded = new Label("Number of Questions Loaded: ");
-      Label actualNumber = new Label("0"); //label to dynamically change
+      Label actualNumber = new Label(""+questionsLoaded); //label to dynamically change
       addQuestion.setOnAction(e -> addQuestionScreen(actualNumber)); //functionality of button
       loadQuestions.setOnAction(e -> loadSaveScreen());
       saveQuestions.setOnAction(e -> loadSaveScreen());
