@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -78,20 +79,45 @@ public class Main extends Application {
 		Stage stage = new Stage();
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root,400,400);
+		createTitle(stage, root);
 		
-		Label quizGenerator = new Label("Quiz Generator");
-		quizGenerator.setFont(new Font("Arial", 30));
-		BorderPane.setAlignment(quizGenerator, Pos.CENTER);
-		BorderPane.setMargin(quizGenerator, new Insets(12,12,12,12));
-		Button backButton = new Button("Back");
-		backButton.setOnAction(e -> stage.hide());
-		backButton.setFont(new Font("Arial", 20));
-		HBox titleBox = new HBox(backButton, quizGenerator);
-		root.setTop(titleBox);
+		GridPane body = new GridPane();
+		Label topic = new Label("Topic: ");
+		topic.setFont(new Font("Arial", 16));
+		TextField topicField = new TextField("topic");
+		Label questionText = new Label("Question Text: ");
+		questionText.setFont(new Font("Arial", 16));
+		TextField questionTextField = new TextField("question text");
+		Label choices = new Label("Choices: ");
+		choices.setFont(new Font("Arial", 16));
+		
+		body.add(topic, 0, 0);
+		body.add(topicField, 1, 0);
+		body.add(questionText, 0, 1);
+		body.add(questionTextField, 1, 1);
+		body.add(choices, 0, 2);
+		root.setCenter(body);
 		
 		stage.setScene(scene);
 		stage.setTitle("Quiz Generator");
 		stage.show();
+	}
+	
+	public void createTitle(Stage stage, BorderPane root) {
+		Label quizGenerator = new Label("Quiz Generator");
+		quizGenerator.setFont(new Font("Arial", 30));
+		BorderPane.setAlignment(quizGenerator, Pos.CENTER);
+		BorderPane.setMargin(quizGenerator, new Insets(12,12,12,12));
+		
+		Button backButton = new Button("Back");
+		backButton.setOnAction(e -> stage.hide());
+		backButton.setFont(new Font("Arial", 20));
+		
+		GridPane titleGrid = new GridPane();
+		titleGrid.add(backButton, 0, 0);
+		titleGrid.add(quizGenerator, 1, 0);
+		GridPane.setMargin(quizGenerator, new Insets(0, 0, 0, 20));
+		root.setTop(titleGrid);
 	}
 	
 	public static void main(String[] args) {
