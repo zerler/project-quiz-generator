@@ -111,7 +111,7 @@ public class Main extends Application {
 		root.setCenter(main);
 		
 		GridPane bottom = new GridPane();
-		Button add = new Button("ADD");
+		Button add = new Button("Add This Question");
 		bottom.add(new Label("Correct Answer:"), 0, 0);
 		bottom.add(new TextField(), 1, 0);
 		bottom.add(add, 2, 0);
