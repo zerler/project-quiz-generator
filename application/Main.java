@@ -142,6 +142,25 @@ public class Main extends Application {
       Scene scene = new Scene(root,400,400);
       createTitle(stage, root);
       
+      Label ifLoad = new Label("Load File Path:");
+      Label ifSave = new Label("Save File Path:");
+      TextField loadField = new TextField();
+      TextField saveField = new TextField();
+      Button loadButton = new Button("Load");
+      Button saveButton = new Button("Save");
+      
+      GridPane main = new GridPane();
+      main.add(ifLoad, 0, 0);
+      main.add(loadField, 1, 0);
+      main.add(loadButton, 2, 0);
+      main.add(ifSave, 0, 1);
+      main.add(saveField, 1, 1);
+      main.add(saveButton, 2, 1);
+      GridPane.setMargin(ifLoad, new Insets(20, 0, 0, 0));
+      GridPane.setMargin(loadField, new Insets(20, 0, 0, 0));
+      GridPane.setMargin(loadButton, new Insets(20, 0, 0, 0));
+      root.setCenter(main);
+      
       stage.setScene(scene);
       stage.setTitle("Quiz Generator");
       stage.show();
