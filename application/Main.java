@@ -22,6 +22,8 @@ import javafx.scene.text.Font;
 
 
 public class Main extends Application {
+  int questionsLoaded = 0; //holds number of questions loaded
+  
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -48,12 +50,14 @@ public class Main extends Application {
 	  BorderPane.setMargin(quizGenerator, new Insets(12,12,12,12)); // optional
       root.setTop(quizGenerator);
       
-      Button addQuestion = new Button("Add Question");
-      addQuestion.setOnAction(e -> addQuestionScreen());
+      Button addQuestion = new Button("Add Question"); //create addQuestion button
       Button loadQuestions = new Button("Load Questions");
       Button saveQuestions = new Button("Save Questions");
       Label numberOfQuestionsLoaded = new Label("Number of Questions Loaded: ");
       Label actualNumber = new Label("0"); //label to dynamically change
+      addQuestion.setOnAction(e -> addQuestionScreen(actualNumber)); //functionality of button
+      loadQuestions.setOnAction(e -> loadSaveScreen());
+      saveQuestions.setOnAction(e -> loadSaveScreen());
       
       ListView<CheckBox> listView = new ListView<CheckBox>();
       ObservableList<CheckBox> topics = FXCollections.observableArrayList();
@@ -78,7 +82,7 @@ public class Main extends Application {
       root.setBottom(bottomBox);
 	}
 	
-	public void addQuestionScreen() {
+	public void addQuestionScreen(Label count) {
 		Stage stage = new Stage();
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root,400,400);
@@ -108,12 +112,19 @@ public class Main extends Application {
 		body.add(questionTextField, 1, 1);
 		body.add(choicesLabel, 0, 2);
 		body.add(leaveBlank, 1, 2);
+		GridPane.setMargin(topic, new Insets(20, 0, 0, 0));
+		GridPane.setMargin(topicField, new Insets(20, 0, 0, 0));
 		
 		VBox main = new VBox(body, listView);
 		root.setCenter(main);
 		
 		GridPane bottom = new GridPane();
 		Button add = new Button("Add This Question");
+		add.setOnAction(e -> {
+		  questionsLoaded++;
+		  count.setText(""+questionsLoaded);
+		  stage.hide();
+		});
 		bottom.add(new Label("Correct Answer:"), 0, 0);
 		bottom.add(new TextField(), 1, 0);
 		bottom.add(add, 2, 0);
@@ -123,6 +134,17 @@ public class Main extends Application {
 		stage.setScene(scene);
 		stage.setTitle("Quiz Generator");
 		stage.show();
+	}
+	
+	public void loadSaveScreen() {
+	  Stage stage = new Stage();
+      BorderPane root = new BorderPane();
+      Scene scene = new Scene(root,400,400);
+      createTitle(stage, root);
+      
+      stage.setScene(scene);
+      stage.setTitle("Quiz Generator");
+      stage.show();
 	}
 	
 	public void createTitle(Stage stage, BorderPane root) {
