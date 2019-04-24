@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
@@ -81,22 +82,41 @@ public class Main extends Application {
 		Scene scene = new Scene(root,400,400);
 		createTitle(stage, root);
 		
-		GridPane body = new GridPane();
 		Label topic = new Label("Topic: ");
 		topic.setFont(new Font("Arial", 16));
-		TextField topicField = new TextField("topic");
+		TextField topicField = new TextField();
 		Label questionText = new Label("Question Text: ");
 		questionText.setFont(new Font("Arial", 16));
-		TextField questionTextField = new TextField("question text");
-		Label choices = new Label("Choices: ");
-		choices.setFont(new Font("Arial", 16));
+		TextField questionTextField = new TextField();
+		Label choicesLabel = new Label("Choices:");
+		choicesLabel.setFont(new Font("Arial", 16));
+		Label leaveBlank = new Label("leave choice blank if unneeded");
+		leaveBlank.setFont(new Font("Arial", 16));
 		
+		ListView<TextField> listView = new ListView<TextField>();
+		ObservableList<TextField> choices = FXCollections.observableArrayList();
+		for (int i = 0; i < 5; i++)
+			choices.add(new TextField());
+		listView.setItems(choices);
+		
+		GridPane body = new GridPane();
 		body.add(topic, 0, 0);
 		body.add(topicField, 1, 0);
 		body.add(questionText, 0, 1);
 		body.add(questionTextField, 1, 1);
-		body.add(choices, 0, 2);
-		root.setCenter(body);
+		body.add(choicesLabel, 0, 2);
+		body.add(leaveBlank, 1, 2);
+		
+		VBox main = new VBox(body, listView);
+		root.setCenter(main);
+		
+		GridPane bottom = new GridPane();
+		Button add = new Button("ADD");
+		bottom.add(new Label("Correct Answer:"), 0, 0);
+		bottom.add(new TextField(), 1, 0);
+		bottom.add(add, 2, 0);
+		GridPane.setHalignment(add, HPos.RIGHT);
+		root.setBottom(bottom);
 		
 		stage.setScene(scene);
 		stage.setTitle("Quiz Generator");
