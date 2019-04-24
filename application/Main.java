@@ -53,18 +53,20 @@ public class Main extends Application {
       Button loadQuestions = new Button("Load Questions");
       Button saveQuestions = new Button("Save Questions");
       Label numberOfQuestionsLoaded = new Label("Number of Questions Loaded: ");
+      Label actualNumber = new Label("0"); //label to dynamically change
       
       ListView<CheckBox> listView = new ListView<CheckBox>();
       ObservableList<CheckBox> topics = FXCollections.observableArrayList();
-      
       topics.add(new CheckBox("hash table"));
       topics.add(new CheckBox("linux"));
       topics.add(new CheckBox("tree"));
       listView.setItems(topics);
       
+      HBox numberBox = new HBox(numberOfQuestionsLoaded, actualNumber);
       HBox topBox = new HBox(addQuestion, loadQuestions, saveQuestions);
+      VBox mainVBox = new VBox(topBox, numberBox, listView);
+      numberBox.setAlignment(Pos.CENTER);
       topBox.setAlignment(Pos.CENTER);
-      VBox mainVBox = new VBox(topBox, numberOfQuestionsLoaded, listView);
       mainVBox.setAlignment(Pos.CENTER);
       root.setCenter(mainVBox);
       
