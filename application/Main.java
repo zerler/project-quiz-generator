@@ -1,6 +1,7 @@
 package application;
 	
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -46,6 +47,7 @@ public class Main extends Application {
       root.setTop(quizGenerator);
       
       Button addQuestion = new Button("Add Question");
+      addQuestion.setOnAction(e -> addQuestionScreen());
       Button loadQuestions = new Button("Load Questions");
       Button saveQuestions = new Button("Save Questions");
       Label numberOfQuestionsLoaded = new Label("Number of Questions Loaded: ");
@@ -70,6 +72,26 @@ public class Main extends Application {
       HBox bottomBox = new HBox(startButton, desiredQuestions, numQuestions);
       bottomBox.setAlignment(Pos.CENTER);
       root.setBottom(bottomBox);
+	}
+	
+	public void addQuestionScreen() {
+		Stage stage = new Stage();
+		BorderPane root = new BorderPane();
+		Scene scene = new Scene(root,400,400);
+		
+		Label quizGenerator = new Label("Quiz Generator");
+		quizGenerator.setFont(new Font("Arial", 30));
+		BorderPane.setAlignment(quizGenerator, Pos.CENTER);
+		BorderPane.setMargin(quizGenerator, new Insets(12,12,12,12));
+		Button backButton = new Button("Back");
+		backButton.setOnAction(e -> stage.hide());
+		backButton.setFont(new Font("Arial", 20));
+		HBox titleBox = new HBox(backButton, quizGenerator);
+		root.setTop(titleBox);
+		
+		stage.setScene(scene);
+		stage.setTitle("Quiz Generator");
+		stage.show();
 	}
 	
 	public static void main(String[] args) {
