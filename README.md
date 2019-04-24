@@ -7,12 +7,12 @@ Kyle Verheyen, krverheyen@wisc.edu
 Michelle Gotteiner, gotteiner@wisc.edu
 
 # Progress
-- created basic gui
-- added observable list for topics
-- created three buttons to outline functionality
-- centered gui elements and enhanced title
+- created home screen gui
+- created "add question" gui
+- created "load/save questions" gui
 
 # Future
 - add functionality to buttons/controls
 - refine the look of the gui (center and add color)
-- add additional gui screens
+- add required classes
+- add quiz question screen gui
