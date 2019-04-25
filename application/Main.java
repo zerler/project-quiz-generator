@@ -27,28 +27,24 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
-			createHomepage(root, scene);
-			
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("Quiz Generator");
-			primaryStage.show();
-			
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			createHomepage();
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void createHomepage(BorderPane root, Scene scene) {
+	private void createHomepage() {
 	  questionsLoaded = 4;
-	  Label quizGenerator = new Label("Quiz Generator");
+	  Stage stage = new Stage();
+      BorderPane root = new BorderPane();
+      Scene scene = new Scene(root,400,400);
+	  
+	  Label quizGenerator = new Label("Quiz Generator"); //label for title
 	  quizGenerator.setFont(new Font("Arial", 30));
 	  BorderPane.setAlignment(quizGenerator, Pos.CENTER);
-	  BorderPane.setMargin(quizGenerator, new Insets(12,12,12,12)); // optional
+	  BorderPane.setMargin(quizGenerator, new Insets(12,12,12,12)); //margin for title
       root.setTop(quizGenerator);
       
       Button addQuestion = new Button("Add Question"); //create addQuestion button
@@ -60,20 +56,20 @@ public class Main extends Application {
       loadQuestions.setOnAction(e -> loadSaveScreen());
       saveQuestions.setOnAction(e -> loadSaveScreen());
       
-      ListView<CheckBox> listView = new ListView<CheckBox>();
+      ListView<CheckBox> listView = new ListView<CheckBox>(); //create list of topics
       ObservableList<CheckBox> topics = FXCollections.observableArrayList();
       topics.add(new CheckBox("hash table"));
       topics.add(new CheckBox("linux"));
       topics.add(new CheckBox("tree"));
       listView.setItems(topics);
       
-      HBox numberBox = new HBox(numberOfQuestionsLoaded, actualNumber);
+      HBox numberBox = new HBox(numberOfQuestionsLoaded, actualNumber); //create layouts
       HBox topBox = new HBox(addQuestion, loadQuestions, saveQuestions);
       VBox mainVBox = new VBox(topBox, numberBox, listView);
-      numberBox.setAlignment(Pos.CENTER);
+      numberBox.setAlignment(Pos.CENTER); //center main elements
       topBox.setAlignment(Pos.CENTER);
       mainVBox.setAlignment(Pos.CENTER);
-      root.setCenter(mainVBox);
+      root.setCenter(mainVBox); //set center
       
       Button startButton = new Button("Start");
       Label desiredQuestions = new Label("Desired Number of Questions: ");
@@ -81,6 +77,10 @@ public class Main extends Application {
       HBox bottomBox = new HBox(startButton, desiredQuestions, numQuestions);
       bottomBox.setAlignment(Pos.CENTER);
       root.setBottom(bottomBox);
+      
+      stage.setScene(scene);
+      stage.setTitle("Quiz Generator");
+      stage.show();
 	}
 	
 	public void addQuestionScreen(Label count) {
