@@ -37,7 +37,7 @@ public class Main extends Application {
 	}
 	
 	private void createHomepage() {
-	  questionsLoaded = 4;
+	  questionsLoaded = 4; //hardcode number of questions for now
 	  Stage stage = new Stage();
       BorderPane root = new BorderPane();
       Scene scene = new Scene(root,400,400);
@@ -72,10 +72,11 @@ public class Main extends Application {
       mainVBox.setAlignment(Pos.CENTER);
       root.setCenter(mainVBox); //set center
       
-      Button startButton = new Button("Start");
+      Button startButton = new Button("START");
       Label desiredQuestions = new Label("Desired Number of Questions: ");
       TextField numQuestions = new TextField();
       HBox bottomBox = new HBox(startButton, desiredQuestions, numQuestions);
+      HBox.setMargin(startButton, new Insets(0, 15, 0, 0));
       bottomBox.setAlignment(Pos.CENTER);
       root.setBottom(bottomBox);
       
