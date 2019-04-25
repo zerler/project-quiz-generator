@@ -8,6 +8,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -119,6 +120,19 @@ public class Main extends Application {
 		VBox main = new VBox(body, listView);
 		root.setCenter(main);
 		
+	    VBox left = new VBox(new Label("A"), new Label("B"), new Label("C"), new Label("D"), 
+	        new Label("E"));
+	    Label current;
+	    for (int i = 0; i < 5; i++) {
+	      current = (Label)left.getChildren().get(i);
+	      current.setFont(new Font("Arial", 24));
+	      if (i > 0)
+	        VBox.setMargin(left.getChildren().get(i), new Insets(5, 0, 0, 0));
+	    }
+	    
+	    VBox.setMargin(left.getChildren().get(0), new Insets(90, 0, 0, 0));
+	    root.setLeft(left);
+		
 		GridPane bottom = new GridPane();
 		Button add = new Button("Add This Question");
 		add.setOnAction(e -> {
@@ -126,7 +140,7 @@ public class Main extends Application {
 		  count.setText(""+questionsLoaded);
 		  stage.hide();
 		});
-		bottom.add(new Label("Correct Answer:"), 0, 0);
+		bottom.add(new Label("Correct Answer Letter:"), 0, 0);
 		bottom.add(new TextField(), 1, 0);
 		bottom.add(add, 2, 0);
 		GridPane.setHalignment(add, HPos.RIGHT);
