@@ -13,4 +13,16 @@ public class Quiz {
     answersIncorrect = 0;
     score = 0.0;
   }
+  
+  public double calculateScore() {
+    for (Question question : questions) {
+      if (question.isCorrect)
+        answersCorrect++;
+      else
+        answersIncorrect++;
+    }
+    score = (double)answersCorrect/(answersCorrect+answersIncorrect);
+    score *= 100;
+    return score;
+  }
 }
