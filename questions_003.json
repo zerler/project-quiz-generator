@@ -3,9 +3,9 @@
 	[
 	    {
 	        "meta-data":"unused",
-		"questionText": "Which statement is TRUE regarding sets A and B.",
+			"questionText": "Which statement is TRUE regarding sets A and B.",
 	        "topic": "set",
-	        "image":"set_subset_superset.png",
+	        "imageFile":"set_subset_superset.png",
 	        "choiceArray": 
 	        [
 	        	{"iscorrect":"F","choice":"A is a subset of B, but not a proper subset of B"},

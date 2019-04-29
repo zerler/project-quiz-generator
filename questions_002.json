@@ -5,7 +5,7 @@
 	        "meta-data":"unused",
 		"questionText": "If a good hash function is found and a reasonable table size is used for a hash table, then the operations of put, remove, and get should achieve an average time complexity of _____ where $N$ is the number of items and $TS$ is the size of the table.",
 	        "topic": "hash table",
-	        "image":"none",
+	        "imageFile":"none",
 	        "choiceArray": 
 	        [
 	        	{"iscorrect":"T","choice":"$O(1)$"},

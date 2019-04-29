@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class Question {
   private String questionText;
   private ArrayList<String> choices;
-  private String correctAnswer; //example "A", "B" ...
+  private String correctAnswer;
   private String topic; //example "linux", "AVL trees"
   public boolean isCorrect; //holds whether user answered question correctly
   public String imageFile; //holds path for optional image in question OR null
@@ -37,11 +37,8 @@ public class Question {
   }
   
   public void setAnswer(String answer) {
-    answer = answer.toUpperCase();
-    ArrayList<String> possible = 
-        new ArrayList<String>(Arrays.asList("A", "B", "C", "D", "E"));
-    if (possible.contains(answer))
-      this.correctAnswer = answer;
+    answer = answer.toLowerCase();
+    this.correctAnswer = answer;
   }
   
   public String getAnswer() {
