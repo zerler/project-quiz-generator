@@ -4,14 +4,15 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class Teacher {
-  Map<String, ArrayList<Question>> sortedQuestions;
-  ArrayList<Question> unsortedQuestions;
+  protected Map<String, ArrayList<Question>> sortedQuestions;
+  protected ArrayList<Question> unsortedQuestions;
   
   public Teacher() {
     sortedQuestions = new TreeMap<String, ArrayList<Question>>();

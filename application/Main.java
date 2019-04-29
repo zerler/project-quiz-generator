@@ -1,14 +1,13 @@
 package application;
 	
+import java.util.ArrayList;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -24,6 +23,7 @@ import javafx.scene.text.Font;
 
 public class Main extends Application {
   int questionsLoaded = 0; //holds number of questions loaded
+  Teacher teacher = new Teacher();
   
 	@Override
 	public void start(Stage primaryStage) {
@@ -37,7 +37,6 @@ public class Main extends Application {
 	}
 	
 	private void createHomepage() {
-	  questionsLoaded = 4; //hardcode number of questions for now
 	  Stage stage = new Stage();
       BorderPane root = new BorderPane();
       Scene scene = new Scene(root,400,400);
@@ -53,15 +52,18 @@ public class Main extends Application {
       Button saveQuestions = new Button("Save Questions");
       Label numberOfQuestionsLoaded = new Label("Number of Questions Loaded: ");
       Label actualNumber = new Label(""+questionsLoaded); //label to dynamically change
-      addQuestion.setOnAction(e -> addQuestionScreen(actualNumber)); //functionality of button
+      addQuestion.setOnAction(e -> {  //functionality of button
+        addQuestionScreen();
+        stage.hide();
+      });
       loadQuestions.setOnAction(e -> loadSaveScreen());
       saveQuestions.setOnAction(e -> loadSaveScreen());
       
       ListView<CheckBox> listView = new ListView<CheckBox>(); //create list of topics
       ObservableList<CheckBox> topics = FXCollections.observableArrayList();
-      topics.add(new CheckBox("hash table"));
-      topics.add(new CheckBox("linux"));
-      topics.add(new CheckBox("tree"));
+      for (String topic : teacher.sortedQuestions.keySet())
+        topics.add(new CheckBox(topic));
+
       listView.setItems(topics);
       
       HBox numberBox = new HBox(numberOfQuestionsLoaded, actualNumber); //create layouts
@@ -87,7 +89,7 @@ public class Main extends Application {
       stage.show();
 	}
 	
-	public void addQuestionScreen(Label count) {
+	public void addQuestionScreen() {
 		Stage stage = new Stage();
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root,400,400);
@@ -99,6 +101,9 @@ public class Main extends Application {
 		Label questionText = new Label("Question Text: ");
 		questionText.setFont(new Font("Arial", 16));
 		TextField questionTextField = new TextField();
+		Label imgPath = new Label("Image Path: ");
+		imgPath.setFont(new Font("Arial", 16));
+		TextField imgPathTextField = new TextField();
 		Label choicesLabel = new Label("Choices:");
 		choicesLabel.setFont(new Font("Arial", 16));
 		Label leaveBlank = new Label("leave choice blank if unneeded");
@@ -115,8 +120,10 @@ public class Main extends Application {
 		body.add(topicField, 1, 0);
 		body.add(questionText, 0, 1);
 		body.add(questionTextField, 1, 1);
-		body.add(choicesLabel, 0, 2);
-		body.add(leaveBlank, 1, 2);
+		body.add(imgPath, 0, 2);
+		body.add(imgPathTextField, 1, 2);
+		body.add(choicesLabel, 0, 3);
+        body.add(leaveBlank, 1, 3);
 		GridPane.setMargin(topic, new Insets(20, 0, 0, 0));
 		GridPane.setMargin(topicField, new Insets(20, 0, 0, 0));
 		
@@ -133,18 +140,27 @@ public class Main extends Application {
 	        VBox.setMargin(left.getChildren().get(i), new Insets(5, 0, 0, 0));
 	    }
 	    
-	    VBox.setMargin(left.getChildren().get(0), new Insets(90, 0, 0, 0));
+	    VBox.setMargin(left.getChildren().get(0), new Insets(120, 0, 0, 0));
 	    root.setLeft(left);
 		
 		GridPane bottom = new GridPane();
 		Button add = new Button("Add This Question");
+		TextField correctAnswer = new TextField();
 		add.setOnAction(e -> {
 		  questionsLoaded++;
-		  count.setText(""+questionsLoaded);
+		  ArrayList<String> stringChoices = new ArrayList<>();
+		  for (TextField field : choices) {
+		    if (!field.getText().equals(""))
+		      stringChoices.add(field.getText());
+		  }
+		  
+		  teacher.addQuestion(questionTextField.getText(), stringChoices, correctAnswer.getText(),
+		      topicField.getText(), imgPathTextField.getText());
 		  stage.hide();
+		  createHomepage();
 		});
-		bottom.add(new Label("Correct Answer Letter:"), 0, 0);
-		bottom.add(new TextField(), 1, 0);
+		bottom.add(new Label("Full Correct Answer:"), 0, 0);
+		bottom.add(correctAnswer, 1, 0);
 		bottom.add(add, 2, 0);
 		GridPane.setHalignment(add, HPos.RIGHT);
 		root.setBottom(bottom);
