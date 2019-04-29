@@ -70,6 +70,8 @@ public class Main extends Application {
       numberBox.setAlignment(Pos.CENTER); //center main elements
       topBox.setAlignment(Pos.CENTER);
       mainVBox.setAlignment(Pos.CENTER);
+      HBox.setMargin(numberOfQuestionsLoaded, new Insets(5, 0, 5, 0)); //set margin for number label
+      HBox.setMargin(actualNumber, new Insets(5, 0, 5, 0));
       root.setCenter(mainVBox); //set center
       
       Button startButton = new Button("START");
