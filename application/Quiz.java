@@ -1,7 +1,9 @@
 package application;
 
+import java.util.ArrayList;
+
 public class Quiz {
-//  ArrayList<Question> questions;
+  ArrayList<Question> questions;
   int answersCorrect;
   int answersIncorrect;
   double score;
