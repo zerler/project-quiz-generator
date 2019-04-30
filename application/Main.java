@@ -238,6 +238,39 @@ public class Main extends Application {
 		root.setTop(titleGrid);
 	}
 	
+	public void createResultScreen() {
+		Stage stage = new Stage();
+		BorderPane root = new BorderPane();
+		Scene scene = new Scene(root, 400, 400);
+		createTitle(stage, root);
+
+		ArrayList<Question> topic = new ArrayList<Question>();
+		Quiz quiz = new Quiz(topic);
+
+		Label result = new Label("Result");
+		Label correct = new Label("Correct: " + quiz.getNumberAnswersCorrect());
+		Label numOfQuestion = new Label("Number of questions: " + quiz.getNumQuestions());
+		Label percentCorrect = new Label("Grade Percent: " + quiz.calculateScore());
+		Button retry = new Button("Try Again");
+		retry.setFont(new Font("Arial", 20));
+		
+		retry.setOnAction(e -> {
+			stage.hide();
+			createHomepage();
+		});
+		
+		GridPane resultScreen = new GridPane();
+		resultScreen.add(result, 0, 0);
+		resultScreen.add(correct, 0, 1);
+		resultScreen.add(numOfQuestion, 0, 2);
+		resultScreen.add(percentCorrect, 0, 3);
+		resultScreen.add(retry, 0, 4);
+		root.setTop(resultScreen);
+		
+		stage.setScene(scene);
+		stage.show();
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
