@@ -8,10 +8,13 @@ public class Quiz {
   int answersIncorrect;
   double score;
   
-  public Quiz (String[] topics) {
+  public Quiz (ArrayList<Question> questions) {
     answersCorrect = 0;
     answersIncorrect = 0;
     score = 0.0;
+    
+    this.questions = questions;
+    
   }
   
   public double calculateScore() {
@@ -25,4 +28,21 @@ public class Quiz {
     score *= 100;
     return score;
   }
+  
+  public int getNumberAnswersCorrect() {
+	  return answersCorrect;
+  }
+  
+  public double getScore() {
+	  return score;
+  }
+  
+  public int getNumQuestions() {
+	  return questions.size();
+  }
+  
+  public ArrayList<Question> getQuestions(){
+	  return questions;
+  }
+  
 }

@@ -121,4 +121,22 @@ public class Teacher {
     pw.flush(); 
     pw.close(); 
   }
+  
+  public Quiz makeQuiz(String[] topics) {
+	  ArrayList<Question> questions = new ArrayList<Question>();
+	  Set<String> topicKeys = sortedQuestions.keySet();
+	  //find the topic in the map and add all questions of that topic into the questions array
+	  for (String topic : topics) {
+		  for (String topicKey : topicKeys) {
+			  if (topic.compareTo(topicKey) == 0){
+				  for (Question question : sortedQuestions.get(topicKey)) {
+					  questions.add(question);
+				  }
+			  }
+		  }
+	  }
+	  
+	  Quiz newQuiz = new Quiz(questions);
+	  return newQuiz;
+  }
 }
