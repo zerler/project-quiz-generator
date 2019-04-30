@@ -1,5 +1,7 @@
 package application;
 	
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -13,7 +15,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -270,7 +276,69 @@ public class Main extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+	public void answerQuestionScreen(Question question) throws FileNotFoundException {
+      Stage stage = new Stage();
+      BorderPane root = new BorderPane();
+      Scene scene = new Scene(root,600,400);
+      createTitle(stage, root);
+      String questionText = question.getQuestion();
+      ArrayList<String> choices = question.getChoices();
+      GridPane pane = new GridPane();
+      HBox main = new HBox();
+      VBox left = new VBox();
+      VBox right = new VBox();
+      Button submit_and_next = new Button("Submit");
+      FileInputStream inputstream;
+      Image image = null;
+      final ToggleGroup group = new ToggleGroup();
+      if (!question.imageFile.equals(null)) {
+        try {
+          inputstream = new FileInputStream(question.imageFile); 
+          image = new Image(inputstream); 
+        }catch(FileNotFoundException e) {
+        }
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(200);
+        imageView.setFitWidth(200);
+        right.getChildren().add(imageView);
+        Label questionSet = new Label(questionText);
+        left.getChildren().add(questionSet);
+        ArrayList<RadioButton> choicesLabel= new ArrayList<RadioButton>();
+        int numChoices = choices.size();
+        for (int i = 0; i < numChoices; i++) {
+          choicesLabel.add(new RadioButton(choices.get(i)));
+          choicesLabel.get(i).setToggleGroup(group);
+          left.getChildren().add(choicesLabel.get(i));
+        }
+        left.getChildren().add(submit_and_next);
+        submit_and_next.setOnAction(e -> {
+            Label isCorrect;
+            String[] answers = {"A","B","C","D","E"};
+            RadioButton selectedRadioButton =
+                (RadioButton) group.getSelectedToggle();
+            if (selectedRadioButton.equals(null)) { // no choice is selected
+              return;
+            }else {
+              for (int i = 0; i < numChoices; i++) {
+                if (choicesLabel.get(i).equals(selectedRadioButton)) {
+                  if (answers[i].equals(question.getAnswer())) {
+                    isCorrect = new Label("Correct!");
+                  }else isCorrect = new Label("Incorrect!");
+                  left.getChildren().add(isCorrect);
+                  submit_and_next.setText("Next Question");
+                }
+              }
+            }
+          });
+        ;
+      }
+      
+      root.setLeft(left);
+      root.setRight(right);
+      stage.setScene(scene);
+      stage.setTitle("Quiz Generator");
+      stage.show();
+    }
 	public static void main(String[] args) {
 		launch(args);
 	}
