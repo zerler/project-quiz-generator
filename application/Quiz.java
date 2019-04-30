@@ -29,6 +29,20 @@ public class Quiz {
     return score;
   }
   
+  public int getNumberAnswersCorrect() {
+	  return answersCorrect;
+  }
   
+  public double getScore() {
+	  return score;
+  }
+  
+  public int getNumQuestions() {
+	  return questions.size();
+  }
+  
+  public ArrayList<Question> getQuestions(){
+	  return questions;
+  }
   
 }
