@@ -92,15 +92,13 @@ public class Main extends Application {
       startButton.setOnAction(e ->{
         ArrayList<String> topicsForQuiz = new ArrayList<String>();
         for (int i = 0; i < topics.size(); i++) {
-          if (topics.get(i).isSelected()) topicsForQuiz.add(topics.get(i).getText());
+          if (topics.get(i).isSelected())
+            topicsForQuiz.add(topics.get(i).getText());
         }
         Quiz quiz = this.teacher.makeQuiz(topicsForQuiz, topicsForQuiz.size());
         try {
           this.answerQuestionScreen(quiz, 0);
-        } catch (FileNotFoundException e1) {
-          // TODO Auto-generated catch block
-          e1.printStackTrace();
-        }
+        } catch (FileNotFoundException e1) {/* do nothing */}
       });
       Label desiredQuestions = new Label("Desired Number of Questions: ");
       TextField numQuestions = new TextField();
