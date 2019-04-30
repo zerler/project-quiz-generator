@@ -90,6 +90,7 @@ public class Main extends Application {
       
       Button startButton = new Button("START");
       startButton.setOnAction(e ->{
+        stage.hide();
         ArrayList<String> topicsForQuiz = new ArrayList<String>();
         for (int i = 0; i < topics.size(); i++) {
           if (topics.get(i).isSelected())
@@ -322,8 +323,7 @@ public class Main extends Application {
         try {
           inputstream = new FileInputStream(question.imageFile); 
           image = new Image(inputstream); 
-        }catch(FileNotFoundException e) {
-        }
+        }catch(FileNotFoundException e) {/* do nothing */}
       }
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(200);
@@ -348,24 +348,21 @@ public class Main extends Application {
             stage.hide();
             try {
               answerQuestionScreen(quiz, index+1);
-            } catch (FileNotFoundException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
-            }
+            } catch (FileNotFoundException e1) {/* do nothing */}
           }else {
             Label isCorrect = null;
-            String[] answers = {"A","B","C","D","E"};
             RadioButton selectedRadioButton =
                 (RadioButton) group.getSelectedToggle();
-            if (selectedRadioButton.equals(null)) { // no choice is selected
-              return;
-            }else {
+            if (selectedRadioButton.equals(null)) { return; /*if nothing is selected*/ }
+            else {
               for (int i = 0; i < numChoices; i++) {
                 if (choicesLabel.get(i).equals(selectedRadioButton)) {
-                  if (answers[i].equals(question.getAnswer())) {
+                  if (choicesLabel.get(i).getText().equals(question.getAnswer())) {
+                    quiz.answersCorrect++;
                     isCorrect = new Label("Correct!");
                     break;
                   }else {
+                    quiz.answersIncorrect++;
                     isCorrect = new Label("Incorrect!");
                     break;
                   }
