@@ -3,58 +3,58 @@
 	[
 	    {
 	        "meta-data":"unused",
-			"questionText": "If a good hash function is found and a reasonable table size is used for a hash table, then the operations of put, remove, and get should achieve an average time complexity of _____ where $N$ is the number of items and $TS$ is the size of the table.",
+		"questionText": "If a good hash function is found and a reasonable table size is used for a hash table, then the operations of put, remove, and get should achieve an average time complexity of _____ where $N$ is the number of items and $TS$ is the size of the table.",
 	        "topic": "hash table",
-	        "imageFile":"none",
+	        "image":"none",
 	        "choiceArray": 
 	        [
-	        	{"iscorrect":"T","choice":"$O(1)$"},
-	        	{"iscorrect":"F","choice":"$O(log N)$"},
-	        	{"iscorrect":"F","choice":"$O(log_{TS} N)$"},
-	        	{"iscorrect":"F","choice":"$O(N^{TS})$"},
-	        	{"iscorrect":"F","choice":"$O(N)$"}
+	        	{"isCorrect":"T","choice":"$O(1)$"},
+	        	{"isCorrect":"F","choice":"$O(log N)$"},
+	        	{"isCorrect":"F","choice":"$O(log_{TS} N)$"},
+	        	{"isCorrect":"F","choice":"$O(N^{TS})$"},
+	        	{"isCorrect":"F","choice":"$O(N)$"}
 	        ]
 	    },
 	    {
 	        "meta-data":"unused",
 		"questionText": "Which command will change the current working directory to a sub-directory named $p3$?",
 	        "topic": "linux",
-	        "imageFile":"none",
+	        "image":"none",
 	        "choiceArray": 
 	        [
-	        	{"iscorrect":"F","choice":"pwd"},
-	        	{"iscorrect":"F","choice":"cwd"},
-	        	{"iscorrect":"F","choice":"cp"},
-	        	{"iscorrect":"T","choice":"cd"},
-	        	{"iscorrect":"F","choice":"mkdir"}
+	        	{"isCorrect":"F","choice":"pwd"},
+	        	{"isCorrect":"F","choice":"cwd"},
+	        	{"isCorrect":"F","choice":"cp"},
+	        	{"isCorrect":"T","choice":"cd"},
+	        	{"isCorrect":"F","choice":"mkdir"}
 	        ]
 	    },
 	    {
 	        "meta-data":"unused",
 		"questionText": "Which of the following tree sets are all height-balanced trees? Choose most complete list.",
 	        "topic": "tree",
-	        "imageFile":"none",
+	        "image":"none",
 	        "choiceArray": 
 	        [
-	        	{"iscorrect":"F","choice":"AVL"},
-	        	{"iscorrect":"F","choice":"AVL and Red-Black"},
-	        	{"iscorrect":"T","choice":"AVL and B-Tree"},
-	        	{"iscorrect":"F","choice":"Red-Black and B-Tree"},
-	        	{"iscorrect":"F","choice":"AVL, Red-Black, and B-Tree"}
+	        	{"isCorrect":"F","choice":"AVL"},
+	        	{"isCorrect":"F","choice":"AVL and Red-Black"},
+	        	{"isCorrect":"T","choice":"AVL and B-Tree"},
+	        	{"isCorrect":"F","choice":"Red-Black and B-Tree"},
+	        	{"isCorrect":"F","choice":"AVL, Red-Black, and B-Tree"}
 	        ]
 	    },
 	    {
 	        "meta-data":"unused",
 	        "questionText": "What is the best case , worst case time complexity for inserting a into a BTree where the branching factor is a positive integer $b$ and $N$ is the number of keys? Choices shown as: best case , worst case.",
 	        "topic": "tree",
-	        "imageFile":"none",
+	        "image":"none",
 	        "choiceArray": 
 	        [
-	        	{"iscorrect":"F","choice":"$O(N)$ , $O(N)$"},
-	        	{"iscorrect":"F","choice":"$O(N)$ , $O(log_b N)$"},
-	        	{"iscorrect":"F","choice":"$O(1)$ , $O(log_b N)$"},
-	        	{"iscorrect":"F","choice":"$O(1)$ , $O(N)$"},
-	        	{"iscorrect":"T","choice":"$O(log_b N)$ , $O(log_b N)$"}
+	        	{"isCorrect":"F","choice":"$O(N)$ , $O(N)$"},
+	        	{"isCorrect":"F","choice":"$O(N)$ , $O(log_b N)$"},
+	        	{"isCorrect":"F","choice":"$O(1)$ , $O(log_b N)$"},
+	        	{"isCorrect":"F","choice":"$O(1)$ , $O(N)$"},
+	        	{"isCorrect":"T","choice":"$O(log_b N)$ , $O(log_b N)$"}
 	        ]
 	    }
 	] 
