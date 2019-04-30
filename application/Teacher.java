@@ -30,14 +30,14 @@ public class Teacher {
         
         String topic = (String) JSONQuestion.get("topic"); //get all information from question
         String questionText = (String) JSONQuestion.get("questionText");
-        String image = (String) JSONQuestion.get("imageFile");
+        String image = (String) JSONQuestion.get("image");
         
         JSONArray choices = (JSONArray) JSONQuestion.get("choiceArray"); //get all choices
         String correctAnswer = "";
         ArrayList<String> stringChoices = new ArrayList<String>();
         for (Object choice : choices) { //iterate through all choices
           JSONObject JSONChoice = (JSONObject)choice; //convert each choice to a JSON Object
-          if(JSONChoice.get("iscorrect").equals("T")) //checks if it's the right answer
+          if(JSONChoice.get("isCorrect").equals("T")) //checks if it's the right answer
             correctAnswer = (String) JSONChoice.get("choice");
           stringChoices.add((String)JSONChoice.get("choice")); //add each choice to string arraylist
         }
