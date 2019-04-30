@@ -123,7 +123,7 @@ public class Teacher {
     pw.close(); 
   }
   
-  public Quiz makeQuiz(String[] topics, int numQuestions) {
+  public Quiz makeQuiz(ArrayList<String> topics, int numQuestions) {
 	  ArrayList<Question> questions = new ArrayList<Question>();
 	  ArrayList<Question> allQuestions = new ArrayList<Question>();
 	  Set<String> topicKeys = sortedQuestions.keySet();
