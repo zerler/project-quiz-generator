@@ -12,6 +12,7 @@ import java.util.TreeMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import java.util.Random;
 
 public class Teacher {
   protected Map<String, ArrayList<Question>> sortedQuestions;
@@ -122,18 +123,29 @@ public class Teacher {
     pw.close(); 
   }
   
-  public Quiz makeQuiz(String[] topics) {
+  public Quiz makeQuiz(String[] topics, int numQuestions) {
 	  ArrayList<Question> questions = new ArrayList<Question>();
+	  ArrayList<Question> allQuestions = new ArrayList<Question>();
 	  Set<String> topicKeys = sortedQuestions.keySet();
-	  //find the topic in the map and add all questions of that topic into the questions array
+	  //find and store all questions of selected topics
 	  for (String topic : topics) {
 		  for (String topicKey : topicKeys) {
 			  if (topic.compareTo(topicKey) == 0){
 				  for (Question question : sortedQuestions.get(topicKey)) {
-					  questions.add(question);
+					  allQuestions.add(question);
 				  }
 			  }
 		  }
+	  }
+	  //randomly choose desired number of questions from all questions of selected topic
+
+	  Random rand = new Random();
+	  
+	  for (int i = 0; i < numQuestions; i++) {
+	        int currentIndex = rand.nextInt(allQuestions.size());
+	        Question currentQuestion = allQuestions.get(currentIndex);
+	        allQuestions.remove(currentIndex);
+	        questions.add(currentQuestion);
 	  }
 	  
 	  Quiz newQuiz = new Quiz(questions);
