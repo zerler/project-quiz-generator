@@ -1,8 +1,11 @@
 package application;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -75,5 +78,47 @@ public class Teacher {
     unsortedQuestions.add(new Question(questionText, choices, answer, topic, filePath));
     //sort questions into topics
     sortQuestions();
+  }
+  
+  @SuppressWarnings("unchecked")
+  public void saveQuestions(String fileName) {
+    JSONObject outer = new JSONObject(); //creating JSONObject
+    JSONArray questionArray = new JSONArray(); //holds all question objects
+    JSONObject questionObject; //holds all question information
+    JSONArray choiceArray;
+    JSONObject choiceObject;
+    
+    for (Question question : unsortedQuestions) { //cycle through all questions
+      questionObject = new JSONObject();
+      questionObject.put("meta-data", "unused"); //meta data is always unused
+      questionObject.put("questionText", question.getQuestion()); //set question text
+      questionObject.put("topic", question.getTopic()); //set topic
+      questionObject.put("image", question.imageFile); //set image file path
+      
+      choiceArray = new JSONArray(); //JSON array of choices
+      for (String choice : question.getChoices()) { //cycle through all choices
+        choiceObject = new JSONObject(); //make an object for each choice
+        if (choice.equals(question.getAnswer())) //mark if it's the correct answer
+          choiceObject.put("isCorrect", "T");
+        else
+          choiceObject.put("isCorrect", "F");
+        choiceObject.put("choice", choice); //add the actual choice itself
+        choiceArray.add(choiceObject); //add this object to the array
+      }
+      
+      questionObject.put("choiceArray", choiceArray); //add choiceArray to the question object
+      questionArray.add(questionObject); //add question object to the array of questions
+    }
+    outer.put("questionArray", questionArray); //add array of questions to outer object
+    
+    // writing JSON to filePath 
+    PrintWriter pw = null;
+    try {
+      pw = new PrintWriter(fileName);
+    } catch (FileNotFoundException e) {/* do nothing */} 
+    pw.write(outer.toJSONString()); 
+    
+    pw.flush(); 
+    pw.close(); 
   }
 }

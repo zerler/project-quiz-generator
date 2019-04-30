@@ -36,6 +36,10 @@ public class Question {
       choices.add(newChoice);
   }
   
+  public ArrayList<String> getChoices() {
+    return this.choices;
+  }
+  
   public void setAnswer(String answer) {
     answer = answer.toLowerCase();
     this.correctAnswer = answer;
