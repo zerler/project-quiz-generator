@@ -207,6 +207,11 @@ public class Main extends Application {
         stage.hide();
         createHomepage();
       });
+      saveButton.setOnAction(e -> {
+        teacher.saveQuestions(saveField.getText());
+        stage.hide();
+        createHomepage();
+      });
       
       stage.setScene(scene);
       stage.setTitle("Quiz Generator");
