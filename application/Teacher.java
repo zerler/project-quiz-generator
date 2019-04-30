@@ -80,6 +80,7 @@ public class Teacher {
   public Quiz makeQuiz(String[] topics) {
 	  ArrayList<Question> questions = new ArrayList<Question>();
 	  Set<String> topicKeys = sortedQuestions.keySet();
+	  //find the topic in the map and add all questions of that topic into the questions array
 	  for (String topic : topics) {
 		  for (String topicKey : topicKeys) {
 			  if (topic.compareTo(topicKey) == 0){
