@@ -5,7 +5,7 @@
 		"meta-data":"unused",
 	        "questionText": "The _____ command will copy files from a local repository to a remote repository.",
 	        "topic": "git",
-	        "imageFilename":"none",
+	        "imageFile":"none",
 	        "choiceArray": 
 	        [
 	        	{"isCorrect":"F","choiceText":"git commit"},

@@ -51,13 +51,19 @@ public class Main extends Application {
       Button loadQuestions = new Button("Load Questions");
       Button saveQuestions = new Button("Save Questions");
       Label numberOfQuestionsLoaded = new Label("Number of Questions Loaded: ");
-      Label actualNumber = new Label(""+questionsLoaded); //label to dynamically change
+      Label actualNumber = new Label(""+teacher.sortedQuestions.size()); //label to dynamically change
       addQuestion.setOnAction(e -> {  //functionality of button
         addQuestionScreen();
         stage.hide();
       });
-      loadQuestions.setOnAction(e -> loadSaveScreen());
-      saveQuestions.setOnAction(e -> loadSaveScreen());
+      loadQuestions.setOnAction(e -> {
+        loadSaveScreen();
+        stage.hide();
+      });
+      saveQuestions.setOnAction(e -> {
+        loadSaveScreen();
+        stage.hide();
+      });
       
       ListView<CheckBox> listView = new ListView<CheckBox>(); //create list of topics
       ObservableList<CheckBox> topics = FXCollections.observableArrayList();
@@ -146,24 +152,25 @@ public class Main extends Application {
 		GridPane bottom = new GridPane();
 		Button add = new Button("Add This Question");
 		TextField correctAnswer = new TextField();
-		add.setOnAction(e -> {
-		  questionsLoaded++;
-		  ArrayList<String> stringChoices = new ArrayList<>();
-		  for (TextField field : choices) {
-		    if (!field.getText().equals(""))
-		      stringChoices.add(field.getText());
-		  }
-		  
-		  teacher.addQuestion(questionTextField.getText(), stringChoices, correctAnswer.getText(),
-		      topicField.getText(), imgPathTextField.getText());
-		  stage.hide();
-		  createHomepage();
-		});
 		bottom.add(new Label("Full Correct Answer:"), 0, 0);
 		bottom.add(correctAnswer, 1, 0);
 		bottom.add(add, 2, 0);
 		GridPane.setHalignment(add, HPos.RIGHT);
 		root.setBottom(bottom);
+		
+		add.setOnAction(e -> {
+          questionsLoaded++;
+          ArrayList<String> stringChoices = new ArrayList<>();
+          for (TextField field : choices) {
+            if (!field.getText().equals(""))
+              stringChoices.add(field.getText());
+          }
+          
+          teacher.addQuestion(questionTextField.getText(), stringChoices, correctAnswer.getText(),
+              topicField.getText(), imgPathTextField.getText());
+          stage.hide();
+          createHomepage();
+        });
 		
 		stage.setScene(scene);
 		stage.setTitle("Quiz Generator");
@@ -173,7 +180,7 @@ public class Main extends Application {
 	public void loadSaveScreen() {
 	  Stage stage = new Stage();
       BorderPane root = new BorderPane();
-      Scene scene = new Scene(root,400,400);
+      Scene scene = new Scene(root,350,150);
       createTitle(stage, root);
       
       Label ifLoad = new Label("Load File Path:");
@@ -195,6 +202,12 @@ public class Main extends Application {
       GridPane.setMargin(loadButton, new Insets(20, 0, 0, 0));
       root.setCenter(main);
       
+      loadButton.setOnAction(e -> {
+        teacher.loadAdditionalQuestions(loadField.getText());
+        stage.hide();
+        createHomepage();
+      });
+      
       stage.setScene(scene);
       stage.setTitle("Quiz Generator");
       stage.show();
@@ -207,7 +220,10 @@ public class Main extends Application {
 		BorderPane.setMargin(quizGenerator, new Insets(12,12,12,12));
 		
 		Button backButton = new Button("Back");
-		backButton.setOnAction(e -> stage.hide());
+		backButton.setOnAction(e -> {
+		  stage.hide();
+		  createHomepage();
+		});
 		backButton.setFont(new Font("Arial", 20));
 		
 		GridPane titleGrid = new GridPane();
