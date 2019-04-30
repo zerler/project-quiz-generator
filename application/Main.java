@@ -51,7 +51,7 @@ public class Main extends Application {
       Button loadQuestions = new Button("Load Questions");
       Button saveQuestions = new Button("Save Questions");
       Label numberOfQuestionsLoaded = new Label("Number of Questions Loaded: ");
-      Label actualNumber = new Label(""+teacher.sortedQuestions.size()); //label to dynamically change
+      Label actualNumber = new Label(""+teacher.unsortedQuestions.size()); //label to dynamically change
       addQuestion.setOnAction(e -> {  //functionality of button
         addQuestionScreen();
         stage.hide();
