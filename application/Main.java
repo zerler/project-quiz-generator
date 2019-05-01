@@ -26,41 +26,51 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-
+/**
+ * Main driver class to make the JavaFX gui operate
+ * @author All Members
+ *
+ */
 public class Main extends Application {
   int questionsLoaded = 0; //holds number of questions loaded
-  Teacher teacher = new Teacher();
+  Teacher teacher = new Teacher(); //teacher which makes quizzes
   
+    /**
+     * Method gets called on startup of the GUI. Calls the create home page method.
+     * @param primaryStage - the first stage created
+     */
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-//			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			createHomepage();
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+			createHomepage(); //attempt to create the homepage GUI
+		} catch(Exception e) {/* do nothing */}
 	}
 	
+	/**
+	 * Method generates a homepage screen for the quiz generator. Show options to save/load questions
+	 * as well as an option to add a new question. Allows the user to enter a number of desired
+	 * questions for their quiz, and a start button. Also shows a list of topics which the user can
+	 * select to be included in their quiz.
+	 */
 	private void createHomepage() {
-	  Stage stage = new Stage();
+	  Stage stage = new Stage(); //creates the essential parts of the GUI
       BorderPane root = new BorderPane();
       Scene scene = new Scene(root,400,400);
 	  
 	  Label quizGenerator = new Label("Quiz Generator"); //label for title
-	  quizGenerator.setFont(new Font("Arial", 30));
-	  BorderPane.setAlignment(quizGenerator, Pos.CENTER);
+	  quizGenerator.setFont(new Font("Arial", 30)); //modify font of title
+	  BorderPane.setAlignment(quizGenerator, Pos.CENTER); //center title
 	  BorderPane.setMargin(quizGenerator, new Insets(12,12,12,12)); //margin for title
       root.setTop(quizGenerator);
       
-      Button addQuestion = new Button("Add Question"); //create addQuestion button
+      Button addQuestion = new Button("Add Question"); //create necessary buttons
       Button loadQuestions = new Button("Load Questions");
       Button saveQuestions = new Button("Save Questions");
       Label numberOfQuestionsLoaded = new Label("Number of Questions Loaded: ");
       Label actualNumber = new Label(""+teacher.unsortedQuestions.size()); //label to dynamically change
-      addQuestion.setOnAction(e -> {  //functionality of button
-        addQuestionScreen();
-        stage.hide();
+      addQuestion.setOnAction(e -> {  //functionality of buttons
+        addQuestionScreen(); //go to the addQuestion screen
+        stage.hide(); //close this GUI screen
       });
       loadQuestions.setOnAction(e -> {
         loadSaveScreen();
@@ -73,10 +83,10 @@ public class Main extends Application {
       
       ListView<CheckBox> listView = new ListView<CheckBox>(); //create list of topics
       ObservableList<CheckBox> topics = FXCollections.observableArrayList();
-      for (String topic : teacher.sortedQuestions.keySet())
+      for (String topic : teacher.sortedQuestions.keySet()) //add all topics from teacher
         topics.add(new CheckBox(topic));
 
-      listView.setItems(topics);
+      listView.setItems(topics); //set the listView as these topics
       
       HBox numberBox = new HBox(numberOfQuestionsLoaded, actualNumber); //create layouts
       HBox topBox = new HBox(addQuestion, loadQuestions, saveQuestions);
@@ -88,24 +98,24 @@ public class Main extends Application {
       HBox.setMargin(actualNumber, new Insets(5, 0, 5, 0));
       root.setCenter(mainVBox); //set center
       
-      Button startButton = new Button("START");
-      startButton.setOnAction(e ->{
-        stage.hide();
-        ArrayList<String> topicsForQuiz = new ArrayList<String>();
+      Button startButton = new Button("START"); //create start button
+      startButton.setOnAction(e ->{ //add functionality to start button
+        stage.hide(); //close this window
+        ArrayList<String> topicsForQuiz = new ArrayList<String>(); //get topics as strings for quiz
         for (int i = 0; i < topics.size(); i++) {
-          if (topics.get(i).isSelected())
+          if (topics.get(i).isSelected()) //only get selected topics
             topicsForQuiz.add(topics.get(i).getText());
         }
-        Quiz quiz = this.teacher.makeQuiz(topicsForQuiz, topicsForQuiz.size());
+        Quiz quiz = this.teacher.makeQuiz(topicsForQuiz, topicsForQuiz.size()); //make new quiz
         try {
-          this.answerQuestionScreen(quiz, 0);
+          this.answerQuestionScreen(quiz, 0); //go to answer question GUI
         } catch (FileNotFoundException e1) {/* do nothing */}
       });
-      Label desiredQuestions = new Label("Desired Number of Questions: ");
+      Label desiredQuestions = new Label("Desired Number of Questions: "); //GUI elements for bottom
       TextField numQuestions = new TextField();
       HBox bottomBox = new HBox(startButton, desiredQuestions, numQuestions);
-      HBox.setMargin(startButton, new Insets(0, 15, 0, 0));
-      bottomBox.setAlignment(Pos.CENTER);
+      HBox.setMargin(startButton, new Insets(0, 15, 0, 0)); //add some spacing
+      bottomBox.setAlignment(Pos.CENTER); //center these elements
       root.setBottom(bottomBox);
       
       stage.setScene(scene);
@@ -113,33 +123,38 @@ public class Main extends Application {
       stage.show();
 	}
 	
+	/**
+	 * Generates the add question screen, with text fields for all of the required information for
+	 * a new question. After inputting new information, attempts to add the question to the quiz
+	 * generator.
+	 */
 	public void addQuestionScreen() {
-		Stage stage = new Stage();
+		Stage stage = new Stage(); //create essential GUI elements
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root,400,400);
-		createTitle(stage, root);
+		createTitle(stage, root); //set same title bar
 		
-		Label topic = new Label("Topic: ");
-		topic.setFont(new Font("Arial", 16));
+		Label topic = new Label("Topic: "); //create GUI elements for this screen
 		TextField topicField = new TextField();
 		Label questionText = new Label("Question Text: ");
-		questionText.setFont(new Font("Arial", 16));
 		TextField questionTextField = new TextField();
 		Label imgPath = new Label("Image Path: ");
-		imgPath.setFont(new Font("Arial", 16));
 		TextField imgPathTextField = new TextField();
 		Label choicesLabel = new Label("Choices:");
-		choicesLabel.setFont(new Font("Arial", 16));
 		Label leaveBlank = new Label("leave choice blank if unneeded");
-		leaveBlank.setFont(new Font("Arial", 16));
+	    topic.setFont(         new Font("Arial", 16) ); //setting fonts of labels
+	    questionText.setFont(  new Font("Arial", 16) );
+	    imgPath.setFont(       new Font("Arial", 16) );
+	    choicesLabel.setFont(  new Font("Arial", 16) );
+		leaveBlank.setFont(    new Font("Arial", 16) );
 		
-		ListView<TextField> listView = new ListView<TextField>();
+		ListView<TextField> listView = new ListView<TextField>(); //creating a list of textfields
 		ObservableList<TextField> choices = FXCollections.observableArrayList();
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 5; i++) //show 5 blank text fields for choices
 			choices.add(new TextField());
 		listView.setItems(choices);
 		
-		GridPane body = new GridPane();
+		GridPane body = new GridPane(); //create GridPane to organize all elements
 		body.add(topic, 0, 0);
 		body.add(topicField, 1, 0);
 		body.add(questionText, 0, 1);
@@ -148,26 +163,26 @@ public class Main extends Application {
 		body.add(imgPathTextField, 1, 2);
 		body.add(choicesLabel, 0, 3);
         body.add(leaveBlank, 1, 3);
-		GridPane.setMargin(topic, new Insets(20, 0, 0, 0));
+		GridPane.setMargin(topic, new Insets(20, 0, 0, 0)); //add spacing
 		GridPane.setMargin(topicField, new Insets(20, 0, 0, 0));
 		
-		VBox main = new VBox(body, listView);
+		VBox main = new VBox(body, listView); //further layout organization with VBox
 		root.setCenter(main);
 		
 	    VBox left = new VBox(new Label("A"), new Label("B"), new Label("C"), new Label("D"), 
-	        new Label("E"));
+	        new Label("E")); //label different selections
 	    Label current;
-	    for (int i = 0; i < 5; i++) {
+	    for (int i = 0; i < 5; i++) { //set all letters to the same large font
 	      current = (Label)left.getChildren().get(i);
 	      current.setFont(new Font("Arial", 24));
 	      if (i > 0)
-	        VBox.setMargin(left.getChildren().get(i), new Insets(5, 0, 0, 0));
+	        VBox.setMargin(left.getChildren().get(i), new Insets(5, 0, 0, 0)); //space for letters
 	    }
 	    
-	    VBox.setMargin(left.getChildren().get(0), new Insets(120, 0, 0, 0));
+	    VBox.setMargin(left.getChildren().get(0), new Insets(120, 0, 0, 0)); //space above "A"
 	    root.setLeft(left);
 		
-		GridPane bottom = new GridPane();
+		GridPane bottom = new GridPane(); //grid pane to organize elements at bottom
 		Button add = new Button("Add This Question");
 		TextField correctAnswer = new TextField();
 		bottom.add(new Label("Full Correct Answer:"), 0, 0);
@@ -176,18 +191,19 @@ public class Main extends Application {
 		GridPane.setHalignment(add, HPos.RIGHT);
 		root.setBottom(bottom);
 		
-		add.setOnAction(e -> {
-          questionsLoaded++;
-          ArrayList<String> stringChoices = new ArrayList<>();
+		add.setOnAction(e -> { //add functionality to "add question" button
+          questionsLoaded++; //keep track of how many questions are loaded
+          ArrayList<String> stringChoices = new ArrayList<>(); //make an array of all choices
           for (TextField field : choices) {
             if (!field.getText().equals(""))
               stringChoices.add(field.getText());
           }
           
+          //attempt to create a question with this information
           teacher.addQuestion(questionTextField.getText(), stringChoices, correctAnswer.getText(),
               topicField.getText(), imgPathTextField.getText());
-          stage.hide();
-          createHomepage();
+          stage.hide(); //close this window
+          createHomepage(); //go back home
         });
 		
 		stage.setScene(scene);
@@ -195,40 +211,43 @@ public class Main extends Application {
 		stage.show();
 	}
 	
+	/**
+	 * GUI screen to enter path for JSON files to load or save questions.
+	 */
 	public void loadSaveScreen() {
 	  Stage stage = new Stage();
       BorderPane root = new BorderPane();
       Scene scene = new Scene(root,350,150);
-      createTitle(stage, root);
+      createTitle(stage, root); //add same title as other screens
       
-      Label ifLoad = new Label("Load File Path:");
+      Label ifLoad = new Label("Load File Path:"); //create GUI elements for this screen
       Label ifSave = new Label("Save File Path:");
       TextField loadField = new TextField();
       TextField saveField = new TextField();
       Button loadButton = new Button("Load");
       Button saveButton = new Button("Save");
       
-      GridPane main = new GridPane();
+      GridPane main = new GridPane(); //create grid pane to organize elements
       main.add(ifLoad, 0, 0);
       main.add(loadField, 1, 0);
       main.add(loadButton, 2, 0);
       main.add(ifSave, 0, 1);
       main.add(saveField, 1, 1);
       main.add(saveButton, 2, 1);
-      GridPane.setMargin(ifLoad, new Insets(20, 0, 0, 0));
+      GridPane.setMargin(ifLoad, new Insets(20, 0, 0, 0)); //add some spacing
       GridPane.setMargin(loadField, new Insets(20, 0, 0, 0));
       GridPane.setMargin(loadButton, new Insets(20, 0, 0, 0));
       root.setCenter(main);
       
-      loadButton.setOnAction(e -> {
-        teacher.loadAdditionalQuestions(loadField.getText());
-        stage.hide();
-        createHomepage();
+      loadButton.setOnAction(e -> { //add functionality to the buttons
+        teacher.loadAdditionalQuestions(loadField.getText()); //load questions
+        stage.hide(); //close this window
+        createHomepage(); //go back to home screen
       });
       saveButton.setOnAction(e -> {
-        teacher.saveQuestions(saveField.getText());
-        stage.hide();
-        createHomepage();
+        teacher.saveQuestions(saveField.getText()); //save questions
+        stage.hide(); //close this window
+        createHomepage(); //go back to home screen
       });
       
       stage.setScene(scene);
@@ -236,23 +255,28 @@ public class Main extends Application {
       stage.show();
 	}
 	
-	public void createTitle(Stage stage, BorderPane root) {
-		Label quizGenerator = new Label("Quiz Generator");
-		quizGenerator.setFont(new Font("Arial", 30));
-		BorderPane.setAlignment(quizGenerator, Pos.CENTER);
-		BorderPane.setMargin(quizGenerator, new Insets(12,12,12,12));
+	/**
+	 * Small method created to keep the title bar uniform throughout the GUI screens.
+	 * @param stage - the stage to be modified
+	 * @param root - the root layout to be modified
+	 */
+	private void createTitle(Stage stage, BorderPane root) {
+		Label quizGenerator = new Label("Quiz Generator"); //big quiz generator title
+		quizGenerator.setFont(new Font("Arial", 30)); //set the font for title
+		BorderPane.setAlignment(quizGenerator, Pos.CENTER); //center title
+		BorderPane.setMargin(quizGenerator, new Insets(12,12,12,12)); //add spacing
 		
-		Button backButton = new Button("Back");
-		backButton.setOnAction(e -> {
-		  stage.hide();
-		  createHomepage();
+		Button backButton = new Button("Back"); //back button in top left
+		backButton.setOnAction(e -> { //add functionality to button
+		  stage.hide(); //close this window
+		  createHomepage(); //go home
 		});
-		backButton.setFont(new Font("Arial", 20));
+		backButton.setFont(new Font("Arial", 20)); //sent font for button
 		
-		GridPane titleGrid = new GridPane();
+		GridPane titleGrid = new GridPane(); //grid pane to organize the title bar
 		titleGrid.add(backButton, 0, 0);
 		titleGrid.add(quizGenerator, 1, 0);
-		GridPane.setMargin(quizGenerator, new Insets(0, 0, 0, 20));
+		GridPane.setMargin(quizGenerator, new Insets(0, 0, 0, 20)); //add spacing
 		root.setTop(titleGrid);
 	}
 	
