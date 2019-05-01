@@ -281,14 +281,14 @@ public class Main extends Application {
 		root.setTop(titleGrid);
 	}
 	
-	public void createResultScreen() {
+	public void createResultScreen(Quiz quiz) {
 		Stage stage = new Stage();
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root, 400, 400);
 		createTitle(stage, root);
 
 		ArrayList<Question> topic = new ArrayList<Question>();
-		Quiz quiz = new Quiz(topic);
+//		Quiz quiz = new Quiz(topic);
 
 		Label result = new Label("Result");
 		Label correct = new Label("Correct: " + quiz.getNumberAnswersCorrect());
@@ -320,8 +320,13 @@ public class Main extends Application {
      * @throws FileNotFoundException
      */
     public void answerQuestionScreen(Quiz quiz, int index) throws FileNotFoundException {
-      if (index == quiz.questions.size()) return;
+      
+      
       Stage stage = new Stage();
+      if (index == quiz.questions.size()) {
+        stage.hide();
+        this.createResultScreen(quiz);
+      }
       BorderPane root = new BorderPane();
       Scene scene = new Scene(root,600,400);
       createTitle(stage, root);
@@ -398,6 +403,7 @@ public class Main extends Application {
                     // create  correct label
                     isCorrect = new Label("Correct!");
                     question.isCorrect = true;
+                    quiz.answersCorrect++;
                     break;
                   }else {
                     // create  incorrect label
