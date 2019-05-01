@@ -14,15 +14,28 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.util.Random;
 
+/**
+ * Teacher class contains all of the imported and created questions, can load questions, save
+ * questions, and create a new quiz.
+ * @author All Members
+ *
+ */
 public class Teacher {
-  protected Map<String, ArrayList<Question>> sortedQuestions;
-  protected ArrayList<Question> unsortedQuestions;
+  protected Map<String, ArrayList<Question>> sortedQuestions; //sorted questions into topics
+  protected ArrayList<Question> unsortedQuestions; //all questions, unsorted
   
+  /**
+   * Default constructor for a Teacher, creates blank map and array list for questions.
+   */
   public Teacher() {
     sortedQuestions = new TreeMap<String, ArrayList<Question>>();
     unsortedQuestions = new ArrayList<Question>();
   }
   
+  /**
+   * Reads a JSON File at the passed filePath, adds to the sorted and unsorted lists.
+   * @param filePath - location of the JSON file to import from
+   */
   public void loadAdditionalQuestions(String filePath) {
     try {
       Object obj = new JSONParser().parse(new FileReader(filePath)); //create JSON parser
@@ -55,6 +68,9 @@ public class Teacher {
     } catch (Exception e) { return; }
   }
   
+  /**
+   * Iterate through all unsorted questions, add them to the sorted map if they aren't present.
+   */
   private void sortQuestions() {
     for(Question question : unsortedQuestions) { //iterates through all questions imported
       
@@ -68,6 +84,14 @@ public class Teacher {
     }
   }
   
+  /**
+   * Add a new question to this teacher
+   * @param questionText - text of the new question
+   * @param choices - all possible answers to this question
+   * @param answer - the full correct answer in string form
+   * @param topic - the topic for this question
+   * @param filePath - the possible file path of a picture
+   */
   public void addQuestion(String questionText, ArrayList<String> choices, String answer, String topic,
       String filePath) {
     if (choices.size() < 2 || choices.size() > 5) //checks that there are 2-5 choices
@@ -81,6 +105,10 @@ public class Teacher {
     sortQuestions();
   }
   
+  /**
+   * Save all questions loaded to a different JSON file.
+   * @param fileName - new JSON file to be created.
+   */
   @SuppressWarnings("unchecked")
   public void saveQuestions(String fileName) {
     JSONObject outer = new JSONObject(); //creating JSONObject
@@ -123,6 +151,12 @@ public class Teacher {
     pw.close(); 
   }
   
+  /**
+   * Create a quiz based on certain topics and a number of desired questions.
+   * @param topics - selected topics to create quiz from
+   * @param numQuestions - number of questions to put on quiz
+   * @return the quiz just made
+   */
   public Quiz makeQuiz(ArrayList<String> topics, int numQuestions) {
 	  ArrayList<Question> questions = new ArrayList<Question>();
 	  ArrayList<Question> allQuestions = new ArrayList<Question>();
