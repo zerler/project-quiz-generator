@@ -330,12 +330,12 @@ public class Main extends Application {
      * @throws FileNotFoundException
      */
     public void answerQuestionScreen(Quiz quiz, int index) throws FileNotFoundException {
-      
-      
+
       Stage stage = new Stage();
       if (index == quiz.questions.size()) {
         stage.hide();
         this.createResultScreen(quiz);
+        return;
       }
       BorderPane root = new BorderPane();
       Scene scene = new Scene(root,600,400);
