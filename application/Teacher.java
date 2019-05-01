@@ -64,6 +64,7 @@ public class Teacher {
         //create question, add to all questions
         unsortedQuestions.add(new Question(questionText, stringChoices, correctAnswer, topic, image));
         sortQuestions();
+        System.out.println(sortedQuestions.toString());
       }
     } catch (Exception e) { return; }
   }
@@ -78,7 +79,8 @@ public class Teacher {
         ArrayList<Question> newTopic = new ArrayList<>(Arrays.asList(question));
         sortedQuestions.put(question.getTopic(), newTopic); //add new topic
       } else { //if the topic already exists
-        sortedQuestions.get(question.getTopic()).add(question); //add it under the correct topic
+        if (!sortedQuestions.get(question.getTopic()).contains(question)) //if it isnt a duplicate
+          sortedQuestions.get(question.getTopic()).add(question); //add it under the correct topic
       }
       
     }
@@ -166,6 +168,7 @@ public class Teacher {
 	    questionSelection.addAll(sortedQuestions.get(topic)); //add questions of selected topics
 	  
 	  for (int i = 0; i < numQuestions; i++) { //randomly select questions from applicable
+	    if (questionSelection.size() == 0) break;
 	    int randomInt = rand.nextInt(questionSelection.size());
 	    questionsForQuiz.add(questionSelection.get(randomInt));
 	    questionSelection.remove(randomInt);

@@ -106,4 +106,10 @@ public class Question {
   public void setImage(String newPath) {
     this.imageFile = newPath;
   }
+  
+  public String toString() {
+    if (this.questionText.length() > 5)
+      return this.questionText.substring(0, 8)+"...";
+    return this.questionText;
+  }
 }
