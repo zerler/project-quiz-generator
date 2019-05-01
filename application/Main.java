@@ -2,6 +2,7 @@ package application;
 	
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -286,14 +287,17 @@ public class Main extends Application {
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root, 400, 400);
 		createTitle(stage, root);
+		DecimalFormat df = new DecimalFormat("00.00");
 
 		ArrayList<Question> topic = new ArrayList<Question>();
 //		Quiz quiz = new Quiz(topic);
 
+		double score = Math.floor(quiz.calculateScore());
 		Label result = new Label("Result");
 		Label correct = new Label("Correct: " + quiz.getNumberAnswersCorrect());
+		Label incorrect = new Label("Incorrect: "+quiz.answersIncorrect);
 		Label numOfQuestion = new Label("Number of questions: " + quiz.getNumQuestions());
-		Label percentCorrect = new Label("Grade Percent: " + quiz.calculateScore());
+		Label percentCorrect = new Label("Grade Percent: " + score);
 		Button retry = new Button("Try Again");
 		retry.setFont(new Font("Arial", 20));
 		
@@ -305,9 +309,10 @@ public class Main extends Application {
 		GridPane resultScreen = new GridPane();
 		resultScreen.add(result, 0, 0);
 		resultScreen.add(correct, 0, 1);
-		resultScreen.add(numOfQuestion, 0, 2);
-		resultScreen.add(percentCorrect, 0, 3);
-		resultScreen.add(retry, 0, 4);
+		resultScreen.add(incorrect, 0, 2);
+		resultScreen.add(numOfQuestion, 0, 3);
+		resultScreen.add(percentCorrect, 0, 4);
+		resultScreen.add(retry, 0, 5);
 		root.setTop(resultScreen);
 		
 		stage.setScene(scene);
@@ -367,7 +372,7 @@ public class Main extends Application {
         // create and add question text to left part
         questionSet = new Label(questionText);
         left.getChildren().add(questionSet);
-        // use radio button to add chioces
+        // use radio button to add choices
         choicesLabel = new ArrayList<RadioButton>();
         int numChoices = choices.size();
         for (int i = 0; i < numChoices; i++) {
@@ -396,7 +401,7 @@ public class Main extends Application {
             if (selectedRadioButton.equals(null)) { // no choice is selected
               return;
             }else {
-              // check if the chioce is correct
+              // check if the choice is correct
               for (int i = 0; i < numChoices; i++) {
                 if (choicesLabel.get(i).equals(selectedRadioButton)) {
                   if (choicesLabel.get(i).getText().equals(question.getAnswer())) {
@@ -409,6 +414,7 @@ public class Main extends Application {
                     // create  incorrect label
                     isCorrect = new Label("Incorrect!");
                     question.isCorrect = false;
+                    quiz.answersIncorrect++;
                     break;
                   }
                 }

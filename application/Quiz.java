@@ -36,6 +36,8 @@ public class Quiz {
     }
     score = (double)answersCorrect/(answersCorrect+answersIncorrect);
     score *= 100;
+    System.out.println("correct: "+answersCorrect+" incorrect: "+answersIncorrect+" result: "+
+    score);
     return score;
   }
   
