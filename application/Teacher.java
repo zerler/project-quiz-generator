@@ -64,7 +64,6 @@ public class Teacher {
         //create question, add to all questions
         unsortedQuestions.add(new Question(questionText, stringChoices, correctAnswer, topic, image));
         sortQuestions();
-        System.out.println(sortedQuestions.toString());
       }
     } catch (Exception e) { return; }
   }
