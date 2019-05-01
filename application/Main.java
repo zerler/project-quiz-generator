@@ -108,6 +108,7 @@ public class Main extends Application {
         }
         Quiz quiz = this.teacher.makeQuiz(topicsForQuiz, topicsForQuiz.size()); //make new quiz
         try {
+          stage.hide();
           this.answerQuestionScreen(quiz, 0); //go to answer question GUI
         } catch (FileNotFoundException e1) {/* do nothing */}
       });
@@ -312,8 +313,14 @@ public class Main extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-	public void answerQuestionScreen(Quiz quiz, int index) throws FileNotFoundException {
-	  if (index == quiz.questions.size()) return;
+	/**
+     * This is the GUI for answer a question
+     * @param quiz the quiz object
+     * @param index the index of question
+     * @throws FileNotFoundException
+     */
+    public void answerQuestionScreen(Quiz quiz, int index) throws FileNotFoundException {
+      if (index == quiz.questions.size()) return;
       Stage stage = new Stage();
       BorderPane root = new BorderPane();
       Scene scene = new Scene(root,600,400);
@@ -321,8 +328,6 @@ public class Main extends Application {
       Question question;
       String questionText;
       ArrayList<String> choices;
-      GridPane pane;
-      HBox main;
       VBox left;
       VBox right;
       Button submit_and_next;
@@ -331,30 +336,33 @@ public class Main extends Application {
       ToggleGroup group;
       ArrayList<RadioButton> choicesLabel;
       Label questionSet;
-      ArrayList<Boolean> flagArray = new ArrayList<Boolean>();
-      boolean isSubmitted = false;
+      // this array indicates whether question is submitted  
+      ArrayList<Boolean> flagArray = new ArrayList<Boolean>(); 
       question = quiz.questions.get(index);
       questionText = question.getQuestion();
       choices = question.getChoices();
-      pane = new GridPane();
-      main = new HBox();
       left = new VBox();
       right = new VBox();
       submit_and_next = new Button("Submit");
       image = null;
       group = new ToggleGroup();
-      if (!question.imageFile.equals(null)) {
+      if (!question.imageFile.equals(null)) { // if this questino has an image
         try {
           inputstream = new FileInputStream(question.imageFile); 
           image = new Image(inputstream); 
-        }catch(FileNotFoundException e) {/* do nothing */}
+        }catch(FileNotFoundException e) {
+        }
       }
         ImageView imageView = new ImageView(image);
+        // resize the image if size is too big
         imageView.setFitHeight(200);
         imageView.setFitWidth(200);
+        // add image to right part
         right.getChildren().add(imageView);
+        // create and add question text to left part
         questionSet = new Label(questionText);
         left.getChildren().add(questionSet);
+        // use radio button to add chioces
         choicesLabel = new ArrayList<RadioButton>();
         int numChoices = choices.size();
         for (int i = 0; i < numChoices; i++) {
@@ -370,32 +378,39 @@ public class Main extends Application {
         submit_and_next.setOnAction(e -> {
           if (flagArray.size() != 0) {
             stage.hide();
-            try {
+            try { // if the question is answered, go to next question
               answerQuestionScreen(quiz, index+1);
-            } catch (FileNotFoundException e1) {/* do nothing */}
+            } catch (FileNotFoundException e1) {
+              // TODO Auto-generated catch block
+              e1.printStackTrace();
+            }
           }else {
             Label isCorrect = null;
             RadioButton selectedRadioButton =
                 (RadioButton) group.getSelectedToggle();
-            if (selectedRadioButton.equals(null)) { return; /*if nothing is selected*/ }
-            else {
+            if (selectedRadioButton.equals(null)) { // no choice is selected
+              return;
+            }else {
+              // check if the chioce is correct
               for (int i = 0; i < numChoices; i++) {
                 if (choicesLabel.get(i).equals(selectedRadioButton)) {
                   if (choicesLabel.get(i).getText().equals(question.getAnswer())) {
-                    quiz.answersCorrect++;
+                    // create  correct label
                     isCorrect = new Label("Correct!");
+                    question.isCorrect = true;
                     break;
                   }else {
-                    quiz.answersIncorrect++;
+                    // create  incorrect label
                     isCorrect = new Label("Incorrect!");
+                    question.isCorrect = false;
                     break;
                   }
-                  
                 }
               }
+              // add a label to show if answer is correct
               left.getChildren().add(isCorrect);
-              submit_and_next.setText("Next Question");
-              flagArray.add(true);
+              submit_and_next.setText("Next Question"); // change button's name
+              flagArray.add(true); // update flag array, next time it will go to next question
             }
           }
           });
