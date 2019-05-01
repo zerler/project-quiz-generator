@@ -292,7 +292,6 @@ public class Main extends Application {
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root, 400, 400);
 		createTitle(stage, root);
-		DecimalFormat df = new DecimalFormat("00.00");
 
 		ArrayList<Question> topic = new ArrayList<Question>();
 //		Quiz quiz = new Quiz(topic);
@@ -361,7 +360,7 @@ public class Main extends Application {
       submit_and_next = new Button("Submit");
       image = null;
       group = new ToggleGroup();
-      if (!question.imageFile.equals(null)) { // if this questino has an image
+      if (question.imageFile != null) { // if this questino has an image
         try {
           inputstream = new FileInputStream(question.imageFile); 
           image = new Image(inputstream); 
