@@ -408,13 +408,11 @@ public class Main extends Application {
                     // create  correct label
                     isCorrect = new Label("Correct!");
                     question.isCorrect = true;
-                    quiz.answersCorrect++;
                     break;
                   }else {
                     // create  incorrect label
                     isCorrect = new Label("Incorrect!");
                     question.isCorrect = false;
-                    quiz.answersIncorrect++;
                     break;
                   }
                 }

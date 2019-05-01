@@ -158,31 +158,20 @@ public class Teacher {
    * @return the quiz just made
    */
   public Quiz makeQuiz(ArrayList<String> topics, int numQuestions) {
-	  ArrayList<Question> questions = new ArrayList<Question>();
-	  ArrayList<Question> allQuestions = new ArrayList<Question>();
-	  Set<String> topicKeys = sortedQuestions.keySet();
-	  //find and store all questions of selected topics
-	  for (String topic : topics) {
-		  for (String topicKey : topicKeys) {
-			  if (topic.compareTo(topicKey) == 0){
-				  for (Question question : sortedQuestions.get(topicKey)) {
-					  allQuestions.add(question);
-				  }
-			  }
-		  }
-	  }
-	  //randomly choose desired number of questions from all questions of selected topic
-
-	  Random rand = new Random();
+	  ArrayList<Question> questionSelection = new ArrayList<Question>(); //holds all applicable Qs
+	  ArrayList<Question> questionsForQuiz = new ArrayList<Question>(); //holds selected Qs
+	  Random rand = new Random(); //random number generator
 	  
-	  for (int i = 0; i < numQuestions; i++) {
-	        int currentIndex = rand.nextInt(allQuestions.size());
-	        Question currentQuestion = allQuestions.get(currentIndex);
-	        allQuestions.remove(currentIndex);
-	        questions.add(currentQuestion);
+	  for(String topic : topics)
+	    questionSelection.addAll(sortedQuestions.get(topic)); //add questions of selected topics
+	  
+	  for (int i = 0; i < numQuestions; i++) { //randomly select questions from applicable
+	    int randomInt = rand.nextInt(questionSelection.size());
+	    questionsForQuiz.add(questionSelection.get(randomInt));
+	    questionSelection.remove(randomInt);
 	  }
 	  
-	  Quiz newQuiz = new Quiz(questions);
-	  return newQuiz;
+	  Quiz result = new Quiz(questionsForQuiz); //build quiz from selected questions
+	  return result;
   }
 }
