@@ -99,23 +99,28 @@ public class Main extends Application {
       HBox.setMargin(actualNumber, new Insets(5, 0, 5, 0));
       root.setCenter(mainVBox); //set center
       
+      Label desiredQuestions = new Label("Desired Number of Questions: "); //GUI elements for bottom
+      TextField numQuestions = new TextField();
       Button startButton = new Button("START"); //create start button
+      HBox bottomBox = new HBox(startButton, desiredQuestions, numQuestions);
       startButton.setOnAction(e ->{ //add functionality to start button
-        stage.hide(); //close this window
         ArrayList<String> topicsForQuiz = new ArrayList<String>(); //get topics as strings for quiz
         for (int i = 0; i < topics.size(); i++) {
           if (topics.get(i).isSelected()) //only get selected topics
             topicsForQuiz.add(topics.get(i).getText());
         }
-        Quiz quiz = this.teacher.makeQuiz(topicsForQuiz, topicsForQuiz.size()); //make new quiz
+        int numberOfQuestions;
+        Quiz quiz = null;
         try {
-          stage.hide();
-          this.answerQuestionScreen(quiz, 0); //go to answer question GUI
-        } catch (FileNotFoundException e1) {/* do nothing */}
+          numberOfQuestions = Integer.parseInt(numQuestions.getText());
+          quiz = this.teacher.makeQuiz(topicsForQuiz, numberOfQuestions); //make new quiz
+          try {
+            stage.hide();
+            this.answerQuestionScreen(quiz, 0); //go to answer question GUI
+          } catch (FileNotFoundException e1) {/* do nothing */}
+        } catch (Exception e1) {/* do nothing */}
+       
       });
-      Label desiredQuestions = new Label("Desired Number of Questions: "); //GUI elements for bottom
-      TextField numQuestions = new TextField();
-      HBox bottomBox = new HBox(startButton, desiredQuestions, numQuestions);
       HBox.setMargin(startButton, new Insets(0, 15, 0, 0)); //add some spacing
       bottomBox.setAlignment(Pos.CENTER); //center these elements
       root.setBottom(bottomBox);
