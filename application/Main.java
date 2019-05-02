@@ -2,20 +2,15 @@ package application;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -355,16 +350,26 @@ public class Main extends Application {
 	public void exitScreen() {
 	  Stage stage = new Stage();
       BorderPane root = new BorderPane();
-      Scene scene = new Scene(root, 400, 400);
+      Scene scene = new Scene(root, 400, 200);
       
-      Label wantToLeave = new Label("Do you want to save before exiting?");
+      Label wantToLeave = new Label("Save before exiting?");
       Button exit = new Button("No");
       Button save = new Button("Yes");
       HBox lowerBox = new HBox(save, exit);
       VBox centerBox = new VBox(wantToLeave, lowerBox);
-      BorderPane.setAlignment(centerBox, Pos.CENTER); //center VBox
-      BorderPane.setAlignment(lowerBox, Pos.CENTER);
+      wantToLeave.setFont(new Font("Arial", 26));
+      exit.setFont(new Font("Arial", 26));
+      save.setFont(new Font("Arial", 26));
+      lowerBox.setAlignment(Pos.CENTER);
+      centerBox.setAlignment(Pos.CENTER);
+      
       root.setCenter(centerBox);
+      
+      exit.setOnAction(e -> stage.close());
+      save.setOnAction(e -> {
+        stage.close();
+        loadSaveScreen();
+      });
       
       stage.setScene(scene);
       stage.show();
