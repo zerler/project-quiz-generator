@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-Created-By: zerler
+Created-By: Zerler, He, Liu, Verheyen, Gotteiner
 Main-Class: application.Main
 
