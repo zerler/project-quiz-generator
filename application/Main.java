@@ -356,32 +356,35 @@ public class Main extends Application {
 		stage.show(); //Shows the results screen
 	}
 	
+	/**
+	 * GUI Screen to prompt the user if they would like to save their questions before they leave.
+	 * Only has two buttons, one to exit and one to take the user to the save screen.
+	 */
 	public void exitScreen() {
-	  Stage stage = new Stage();
+	  Stage stage = new Stage(); //create essential GUI elements
       BorderPane root = new BorderPane();
       Scene scene = new Scene(root, 400, 200);
       
-      Label wantToLeave = new Label("Save before exiting?");
+      Label wantToLeave = new Label("Save before exiting?"); //create buttons and labels for screen
       Button exit = new Button("No");
       Button save = new Button("Yes");
-      HBox lowerBox = new HBox(save, exit);
+      HBox lowerBox = new HBox(save, exit); //create HBox and VBox to organize buttons/labels
       VBox centerBox = new VBox(wantToLeave, lowerBox);
-      wantToLeave.setFont(new Font("Arial", 26));
+      wantToLeave.setFont(new Font("Arial", 26)); //set fonts for buttons/labels
       exit.setFont(new Font("Arial", 26));
       save.setFont(new Font("Arial", 26));
-      lowerBox.setAlignment(Pos.CENTER);
+      lowerBox.setAlignment(Pos.CENTER); //set alignments to center
       centerBox.setAlignment(Pos.CENTER);
-      
       root.setCenter(centerBox);
       
-      exit.setOnAction(e -> stage.close());
+      exit.setOnAction(e -> stage.close()); //add functionality to both buttons
       save.setOnAction(e -> {
         stage.close();
         loadSaveScreen();
       });
       
       stage.setScene(scene);
-      stage.show();
+      stage.show(); //show this screen
 	}
 
 	/**
