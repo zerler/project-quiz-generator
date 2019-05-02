@@ -123,7 +123,11 @@ public class Teacher {
       questionObject.put("meta-data", "unused"); //meta data is always unused
       questionObject.put("questionText", question.getQuestion()); //set question text
       questionObject.put("topic", question.getTopic()); //set topic
-      questionObject.put("image", question.imageFile); //set image file path
+      
+      if (question.imageFile == null)
+        questionObject.put("image", "none"); //set image file path
+      else
+        questionObject.put("image", question.imageFile); //set image file path
       
       choiceArray = new JSONArray(); //JSON array of choices
       for (String choice : question.getChoices()) { //cycle through all choices
