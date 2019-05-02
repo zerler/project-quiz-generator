@@ -404,17 +404,20 @@ public class Main extends Application {
 		ToggleGroup group;
 		ArrayList<RadioButton> choicesLabel;
 		Label questionSet;
+		Label questionNumber = new Label(
+		    "Question #" + ((Integer) (index+1)).toString() + " in "+quiz.questions.size());
 		// this array indicates whether question is submitted
 		ArrayList<Boolean> flagArray = new ArrayList<Boolean>();
 		question = quiz.questions.get(index);
 		questionText = question.getQuestion();
 		choices = question.getChoices();
 		left = new VBox();
+		left.getChildren().add(questionNumber);
 		right = new VBox();
 		submit_and_next = new Button("Submit");
 		image = null;
 		group = new ToggleGroup();
-		if (question.imageFile != null) { // if this questino has an image
+		if (question.imageFile != null) { // if this question has an image
 			try {
 				inputstream = new FileInputStream(question.imageFile);
 				image = new Image(inputstream);
