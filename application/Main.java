@@ -302,7 +302,7 @@ public class Main extends Application {
 		Scene scene = new Scene(root, 400, 400);
 		createTitle(stage, root);
 
-		ArrayList<Question> topic = new ArrayList<Question>();
+//		ArrayList<Question> topic = new ArrayList<Question>();
 //		Quiz quiz = new Quiz(topic);
 
 		double score = Math.floor(quiz.calculateScore());
@@ -312,12 +312,18 @@ public class Main extends Application {
 		Label numOfQuestion = new Label("Number of questions: " + quiz.getNumQuestions());
 		Label percentCorrect = new Label("Grade Percent: " + score);
 		Button retry = new Button("Try Again");
-		result.setFont(new Font("Arial", 15));
+		result.setFont(new Font("Arial", 20));
 		correct.setFont(new Font("Arial", 15));
 		incorrect.setFont(new Font("Arial", 15));
 		numOfQuestion.setFont(new Font("Arial", 15));
 		percentCorrect.setFont(new Font("Arial", 15));
 		retry.setFont(new Font("Arial", 20));
+
+		GridPane.setMargin(result, new Insets(0, 0, 30, 0));
+		GridPane.setMargin(correct, new Insets(0, 0, 5, 0));
+		GridPane.setMargin(incorrect, new Insets(0, 0, 5, 0));
+		GridPane.setMargin(numOfQuestion, new Insets(0, 0, 5, 0));
+		GridPane.setMargin(percentCorrect, new Insets(0, 0, 5, 0));
 
 		retry.setOnAction(e -> {
 			stage.hide();
