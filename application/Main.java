@@ -60,6 +60,10 @@ public class Main extends Application {
 		Stage stage = new Stage(); // creates the essential parts of the GUI
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root, 500, 500);
+		stage.setOnCloseRequest(e -> {
+		  exitScreen();
+		  stage.hide();
+		});
 
 		Label quizGenerator = new Label("Quiz Generator"); // label for title
 		quizGenerator.setFont(new Font("Arial", 30)); // modify font of title
