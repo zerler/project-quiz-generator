@@ -33,7 +33,6 @@ import javafx.scene.text.Font;
  *
  */
 public class Main extends Application {
-	int questionsLoaded = 0; // holds number of questions loaded
 	Teacher teacher = new Teacher(); // teacher which makes quizzes
 
 	/**
@@ -209,7 +208,6 @@ public class Main extends Application {
 		root.setBottom(bottom);
 
 		add.setOnAction(e -> { // add functionality to "add question" button
-			questionsLoaded++; // keep track of how many questions are loaded
 			ArrayList<String> stringChoices = new ArrayList<>(); // make an array of all choices
 			for (TextField field : choices) {
 				if (!field.getText().equals(""))

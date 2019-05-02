@@ -147,7 +147,7 @@ public class Teacher {
 			questionArray.add(questionObject); // add question object to the array of questions
 		}
 		outer.put("questionArray", questionArray); // add array of questions to outer object
-
+		
 		// writing JSON to filePath
 		PrintWriter pw = null;
 		try {
