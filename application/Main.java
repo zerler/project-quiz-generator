@@ -7,11 +7,15 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -282,15 +286,20 @@ public class Main extends Application {
 	 * @param root  - the root layout to be modified
 	 */
 	private void createTitle(Stage stage, BorderPane root) {
-		Label quizGenerator = new Label("Quiz Generator"); // big quiz generator title
-		quizGenerator.setFont(new Font("Arial", 30)); // set the font for title
-		BorderPane.setAlignment(quizGenerator, Pos.CENTER); // center title
-		BorderPane.setMargin(quizGenerator, new Insets(12, 12, 12, 12)); // add spacing
-
-		Button backButton = new Button("Back"); // back button in top left
-		backButton.setOnAction(e -> { // add functionality to button
-			stage.hide(); // close this window
-			createHomepage(); // go home
+	    stage.setOnCloseRequest(e -> {
+	      stage.hide();
+	      exitScreen();
+	    });
+	    
+		Label quizGenerator = new Label("Quiz Generator"); //big quiz generator title
+		quizGenerator.setFont(new Font("Arial", 30)); //set the font for title
+		BorderPane.setAlignment(quizGenerator, Pos.CENTER); //center title
+		BorderPane.setMargin(quizGenerator, new Insets(12,12,12,12)); //add spacing
+		
+		Button backButton = new Button("Back"); //back button in top left
+		backButton.setOnAction(e -> { //add functionality to button
+		  stage.hide(); //close this window
+		  createHomepage(); //go home
 		});
 		backButton.setFont(new Font("Arial", 20)); // sent font for button
 
@@ -299,7 +308,7 @@ public class Main extends Application {
 		titleGrid.add(quizGenerator, 1, 0);
 		GridPane.setMargin(quizGenerator, new Insets(0, 0, 0, 20)); // add spacing
 		root.setTop(titleGrid);
-	}
+	}	
 
 	public void createResultScreen(Quiz quiz) {
 		Stage stage = new Stage();
@@ -347,6 +356,24 @@ public class Main extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
+	
+	public void exitScreen() {
+	  Stage stage = new Stage();
+      BorderPane root = new BorderPane();
+      Scene scene = new Scene(root, 400, 400);
+      
+      Label wantToLeave = new Label("Do you want to save before exiting?");
+      Button exit = new Button("No");
+      Button save = new Button("Yes");
+      HBox lowerBox = new HBox(save, exit);
+      VBox centerBox = new VBox(wantToLeave, lowerBox);
+      BorderPane.setAlignment(centerBox, Pos.CENTER); //center VBox
+      BorderPane.setAlignment(lowerBox, Pos.CENTER);
+      root.setCenter(centerBox);
+      
+      stage.setScene(scene);
+      stage.show();
+	}
 
 	/**
 	 * This is the GUI for answer a question
@@ -377,17 +404,20 @@ public class Main extends Application {
 		ToggleGroup group;
 		ArrayList<RadioButton> choicesLabel;
 		Label questionSet;
+		Label questionNumber = new Label(
+		    "Question #" + ((Integer) (index+1)).toString() + " in "+quiz.questions.size());
 		// this array indicates whether question is submitted
 		ArrayList<Boolean> flagArray = new ArrayList<Boolean>();
 		question = quiz.questions.get(index);
 		questionText = question.getQuestion();
 		choices = question.getChoices();
 		left = new VBox();
+		left.getChildren().add(questionNumber);
 		right = new VBox();
 		submit_and_next = new Button("Submit");
 		image = null;
 		group = new ToggleGroup();
-		if (question.imageFile != null) { // if this questino has an image
+		if (question.imageFile != null) { // if this question has an image
 			try {
 				inputstream = new FileInputStream(question.imageFile);
 				image = new Image(inputstream);
