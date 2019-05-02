@@ -211,11 +211,6 @@ public class Main extends Application {
 				if (!field.getText().equals(""))
 					stringChoices.add(field.getText());
 			}
-			
-			// adds a default image if none are specified
-			if(imgPathTextField.getText().equalsIgnoreCase("")) {
-			  imgPathTextField.setText("quizbueno.jpg");
-			}
 
 			// attempt to create a question with this information
 			teacher.addQuestion(questionTextField.getText(), stringChoices, correctAnswer.getText(),
