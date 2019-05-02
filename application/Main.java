@@ -263,14 +263,18 @@ public class Main extends Application {
 		root.setCenter(main);
 
 		loadButton.setOnAction(e -> { // add functionality to the buttons
-			teacher.loadAdditionalQuestions(loadField.getText()); // load questions
-			stage.hide(); // close this window
-			createHomepage(); // go back to home screen
+		  if(!loadField.getText().equalsIgnoreCase("")) {
+		    teacher.loadAdditionalQuestions(loadField.getText()); // load questions
+            stage.hide(); // close this window
+            createHomepage(); // go back to home screen 
+		  }
 		});
 		saveButton.setOnAction(e -> {
-			teacher.saveQuestions(saveField.getText()); // save questions
-			stage.hide(); // close this window
-			createHomepage(); // go back to home screen
+		  if(!saveField.getText().equalsIgnoreCase("")) {
+		    teacher.saveQuestions(saveField.getText()); // save questions
+            stage.hide(); // close this window
+            createHomepage(); // go back to home screen
+		  }
 		});
 
 		stage.setScene(scene);
