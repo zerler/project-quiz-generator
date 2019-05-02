@@ -59,7 +59,7 @@ public class Main extends Application {
 	private void createHomepage() {
 		Stage stage = new Stage(); // creates the essential parts of the GUI
 		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root, 400, 400);
+		Scene scene = new Scene(root, 500, 500);
 
 		Label quizGenerator = new Label("Quiz Generator"); // label for title
 		quizGenerator.setFont(new Font("Arial", 30)); // modify font of title
