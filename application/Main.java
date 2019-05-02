@@ -308,17 +308,18 @@ public class Main extends Application {
 		root.setTop(titleGrid);
 	}	
 
+	/**
+	 * Creates the result screen for the quiz
+	 * @param quiz
+	 */
 	public void createResultScreen(Quiz quiz) {
 		Stage stage = new Stage();
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root, 400, 400);
 		createTitle(stage, root);
 
-//		ArrayList<Question> topic = new ArrayList<Question>();
-//		Quiz quiz = new Quiz(topic);
-
-		double score = Math.floor(quiz.calculateScore());
-		Label result = new Label("Result");
+		double score = Math.floor(quiz.calculateScore()); //Calculates the percentage correct
+		Label result = new Label("Result"); // Creates all the labels and buttons
 		Label correct = new Label("Correct: " + quiz.getNumberAnswersCorrect());
 		Label incorrect = new Label("Incorrect: " + quiz.answersIncorrect);
 		Label numOfQuestion = new Label("Number of questions: " + quiz.getNumQuestions());
@@ -331,19 +332,19 @@ public class Main extends Application {
 		percentCorrect.setFont(new Font("Arial", 15));
 		retry.setFont(new Font("Arial", 20));
 
-		GridPane.setMargin(result, new Insets(0, 0, 30, 0));
+		GridPane.setMargin(result, new Insets(0, 0, 30, 0)); //Sets the margins for the labels
 		GridPane.setMargin(correct, new Insets(0, 0, 5, 0));
 		GridPane.setMargin(incorrect, new Insets(0, 0, 5, 0));
 		GridPane.setMargin(numOfQuestion, new Insets(0, 0, 5, 0));
 		GridPane.setMargin(percentCorrect, new Insets(0, 0, 5, 0));
 
-		retry.setOnAction(e -> {
+		retry.setOnAction(e -> { //Sets what to do when the user presses the retry button
 			stage.hide();
 			createHomepage();
 		});
 
 		GridPane resultScreen = new GridPane();
-		resultScreen.add(result, 0, 0);
+		resultScreen.add(result, 0, 0); //Adds the labels to the screen
 		resultScreen.add(correct, 0, 1);
 		resultScreen.add(incorrect, 0, 2);
 		resultScreen.add(numOfQuestion, 0, 3);
@@ -352,7 +353,7 @@ public class Main extends Application {
 		root.setTop(resultScreen);
 
 		stage.setScene(scene);
-		stage.show();
+		stage.show(); //Shows the results screen
 	}
 	
 	public void exitScreen() {
